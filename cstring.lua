@@ -1,0 +1,78 @@
+--[[
+Class representing colored strings.
+]]
+
+Cstring = {}
+
+function Cstring:load()
+	self.char = {}
+	self.cw = 8
+	self.ch = 8
+end
+
+function Cstring:new(string,color)
+	local new = {}	
+	setmetatable(new, self)
+	self.__index = self
+	self.__concat = self.concat
+	self.__eq = self.eq
+
+	new.string = string or ""
+	new.color = {}
+
+	for i = 1,#new.string do
+		new.color[i] = color or {150,150,150}
+	end
+
+
+	return new
+end
+
+function Cstring:draw(x,y,w)
+	local cx = x
+	local cy = y
+	local maxw = x + w
+
+	for i = 1, #self.string do
+		if(string.byte(self.string, i) == string.byte('\n')) then
+			cx = x
+			cy = cy + 1
+		else
+			local c = string.byte(self.string, i)
+			local color = self.color[i] or {150,150,150}
+
+			batch:setColor(color[1],color[2],color[3])
+			batch:add(quads[c],cx*self.cw,cy*self.cw)
+
+			cx = cx + 1
+
+			if(cx >= maxw) then
+				cx = x
+				cy = cy + 1
+			end
+		end
+	end
+end
+
+function Cstring.concat(s1,s2)
+	if(type(s1) == "string") then
+		s1 = Cstring:new(s1)
+	end
+	if(type(s2) == "string") then
+		s2 = Cstring:new(s2)
+	end
+
+	local cstr = Cstring:new(s1.string .. s2.string)
+	for i=1,#s1.color do
+		cstr.color[i] = s1.color[i]
+	end
+	for i=1,#s2.color do
+		cstr.color[#s1.color+i] = s2.color[i]
+	end
+
+	return cstr
+end
+
+function Cstring.eq(s1,s2)
+	return s1.string == s2.string
+end
