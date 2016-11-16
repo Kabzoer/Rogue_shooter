@@ -56,7 +56,7 @@ function Pos:los(pos2)
 end
 
 function Pos:random()
-	return self:new(math.random(1,Map.w),math.random(1,Map.h))
+	return self:new(math.random(2,Map.w-1),math.random(2,Map.h-1))
 end
 
 function Pos:passable(creatures)
@@ -72,6 +72,14 @@ function Pos:passable(creatures)
 	end
 
 	return check
+end
+
+function Pos:inBounds()
+	if(self.x > 0 and self.x<Map.w and self.y > 0 and self.y<Map.h) then
+		return true
+	else
+		return false
+	end
 end
 
 function Pos:floor()

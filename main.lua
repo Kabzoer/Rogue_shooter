@@ -1,11 +1,6 @@
 --[[
 Working title: Hive
 
- Action times:
- fast: 5	ex: shooting pistol
- normal: 10		ex: most actions
- slow: 25 		ex: moving
- slowWW: 100 	ex: reload, use injector
 
 TODO
 [x] inventory
@@ -28,7 +23,7 @@ TODO
 [ ] entity z-score + use z-score for info
 [ ] fix console Cstring (remove console??)
 [x] ai vision
-[ ] ai path remembering 
+[ ] ai pathing?
 [ ] implement AI states/trees/utility?
 [ ] make more enemies
 [x] particles
@@ -41,6 +36,7 @@ TODO
 [ ] how to handle automatic guns vs non-automatic?
 [ ] sound implementation
 [-] design level scenery (organic forms, neon things) 
+[ ] plants
 [ ] slow terrain
 [ ] widescreen support (variable resolution or emulated monitor?) 
 [ ] bigger levels
@@ -116,7 +112,7 @@ function love.load()
 	love.graphics.setFont(font)
 	canv:setFilter("nearest", "nearest")
 	blur = love.graphics.newShader("blur.glsl")
-	blur:send("size", {blurCanvas:getWidth(), blurCanvas:getHeight()}) -- w/3.0 geeft foute blur ???
+	blur:send("size", {blurCanvas:getWidth(), blurCanvas:getHeight()})
 
 	scanlines = love.graphics.newImage("scanlines.png")
 
@@ -127,7 +123,6 @@ function love.load()
 	end	
 	batch = love.graphics.newSpriteBatch(font, 3000,"stream")
 
-	Level:load()
 	gui:load()
 	console:load()
 	Cstring:load()
@@ -136,31 +131,26 @@ function love.load()
 	damage = Map:new(0)
 	damageColor = Map:new({0,0,0})
 	FOV = Map:new(0)  
-	
 
 	Level:generate()
-
-	mouseD = Dijkstra:new()
-	mouseFlee = Dijkstra:new()
-
 
 	for k,v in pairs(teams) do
 		teamD[v] = Dijkstra:new()
 		teamF[v] = Dijkstra:new()
 	end
+	meatD = Dijkstra:new()
 	
 	player = factory.player()
 
+	
 	player.pos = Pos:new(40,30)
 	Level:addRandom(player)
-
-
 	
 	for i=1,30 do 
 		Level:addRandom(factory.rat())
 	end
 
-	for i=1,10 do 
+	for i=1,15 do 
 		Level:addRandom(factory.cleaver())
 	end
 
@@ -182,9 +172,6 @@ function love.load()
 
 	player.inventory:add(factory.knife())
 	player.inventory:add(factory.revolver())
-
-	player.inventory:add(factory.grenade())
-	player.inventory:add(factory.grenade())
 	player:event("select",{index = 1})
 	player:event("select",{index = 2})
 
@@ -226,6 +213,8 @@ function act(dt)
 			end
 
 			player:event("wait",{time = 10})
+		elseif(action == 'reload') then
+			player:event("reload")
 		end
 
 		action = nil
@@ -234,7 +223,8 @@ function act(dt)
 		t = t +1
 		speed = math.min(1.0,speed + 0.1)
 
-		for k,v in pairs(teams) do
+		for k,v in ipairs(teams) do
+
 			if(k == t%10) then
 				list = {}
 				for j,e in pairs(entities) do
@@ -242,10 +232,25 @@ function act(dt)
 						table.insert(list,e.pos)
 					end
 				end
+				--[[if(v == "prey" and #list<10) then
+					Level:addRandom(factory.rat())
+				end]]
+
 				
 				teamD[v]:calculateMG(list)
 				teamF[v]:calculateFlee(teamD[v])
 			end
+
+			
+		end
+		if(t%10 == 8) then
+			list = {}
+			for j,e in pairs(entities) do
+				if(e.food) then
+					table.insert(list,e.pos)
+				end
+			end
+			meatD:calculateMG(list)
 		end
 
 		--update
@@ -267,7 +272,7 @@ function act(dt)
 end
 
 function love.update(dt)	
-
+	
 
 	if love.keyboard.isDown('q') then slowmo() end
 	--do non-turn timing
@@ -276,14 +281,10 @@ function love.update(dt)
 	blink = (time%0.1 < 0.05)
 	blur:send("time", time)
 
-	dt = dt * speed
+	dt = dt
 
 	time = time + dt
 	
-	mouseD:calculate(mouseP)
-	mouseFlee:calculateFlee(mouseD)
-	
-
 	particles:update(dt)
 	
 	--mouse input
@@ -300,13 +301,16 @@ function love.update(dt)
 		player:event("wait",{time = 100*dt})
 		--speed = 0.1
 	end
-	local turnspeed = 100*dt
+	local turnspeed = 100*speed*dt
 	
 	turns = turns - turnspeed
+
 	while(turns < 0) do -- turns per second
 		act(dt)
 		turns = turns + 1
 	end
+
+
 
 	-- calculate graphic-related stuff
 	moveView(dt)
@@ -324,9 +328,13 @@ function love.draw()
 	love.graphics.clear(0,0,0)
 	batch:clear( )
 	Graphics:draw()
-	--draw batch to canvas
+
+
+	--draw to canvas
 	love.graphics.setColor( 255, 255, 255)
 	love.graphics.draw(batch)
+
+	Graphics:drawMap()
 
 	--draw FPS counter
 	love.graphics.setColor(150,100,150)
@@ -397,6 +405,10 @@ function love.keypressed(key)
 		console:println("Switched godmode", {150,150,0})
 	elseif key == "space" then
 		action = 'pickup'
+	elseif key == "r" then
+		action = "reload"
+	elseif key == "z" then
+		Level:generate()
 	elseif type(tonumber(key)) == "number" then
 		action = 'select'
 		action_select = tonumber(key)
@@ -424,7 +436,6 @@ function doFov()
 		for i = 0,12 do
 			local lf = l:floor()
 			if(i<8) then
-				--lf:set(FOV,math.min(1,lf:get(FOV)+dturns*0.01))
 				lf:set(FOV,1.0)
 			else
 				lf:set(FOV,math.max(0.5,lf:get(FOV)))
@@ -461,10 +472,10 @@ end
 function updateScent()
 	
 
-	--[[if(t%10 == 1) then
+	if(t%10 == 7) then
 		for x=0,Map.w do
 			for y=0,Map.h do
-				if(not solid[x][y]) then
+				if(scent[x][y] > 0) then
 					scent[x][y] = scent[x][y] -1
 				end
 			end
@@ -472,37 +483,31 @@ function updateScent()
 	end
 
 	if(t%30 == 5) then
-		local start = love.timer.getTime()
-
-		local nScent = Map:new(0)
+		local nScent = {}
+		for x=0,Map.w do
+			nScent[x] = {}
+			for y=0,Map.h do
+				nScent[x][y] = scent[x][y]
+			end
+		end
 		for x=0,Map.w do
 			for y=0,Map.h do
-				if(not solid[x][y]) then
-
-					local max = scent[x][y]
-					local val = max
+				if(scent[x][y] > 0 and not solid[x][y]) then
+					local val = scent[x][y]
 
 					for i,v in pairs({{0,1},{0,-1},{1,0},{-1,0}}) do
-						local dx = v[1]
-						local dy = v[2]
+						local tx = x + v[1]
+						local ty = y + v[2]
 
-						if(not solid[x+dx][y+dy]) then
-							if(scent[x+dx][y+dy] > max ) then
-								max = scent[x+dx][y+dy]
-								val = max-1
-							end
+						if(not solid[tx][ty] and nScent[tx][ty] < val - 1) then
+							nScent[tx][ty] = val - 1
 						end
 					end
-
-					nScent[x][y] = val
 				end
 			end
 		end
 		scent = nScent
-
-		local result = love.timer.getTime() - start
-		print( string.format( "It took %.3f milliseconds update scent", result * 1000 ))
-	end]]
+	end
 
 	
 

@@ -18,7 +18,7 @@ function Inventory:new()
 
 	new.ammo = {}
 	for k,v in pairs(ammo) do
-		new.ammo[v] = 10
+		new.ammo[v] = 20
 	end
 
 	return new
@@ -46,14 +46,12 @@ function Inventory:event(e)
 				item:event(e)
 			end
 		end
-	elseif(e.id == "reload") then
-		--if(self.ammo[e.bullet]) then
-			self.ammo[e.bullet] = self.ammo[e.bullet] - e.amount
-			if(self.ammo[e.bullet] < 0) then
-				e.amount = e.amount + self.ammo[e.bullet]
-				self.ammo[e.bullet] = 0
-			end
-		--end
+	elseif(e.id == "getAmmo") then
+		self.ammo[e.bullet] = self.ammo[e.bullet] - e.amount
+		if(self.ammo[e.bullet] < 0) then
+			e.amount = e.amount + self.ammo[e.bullet]
+			self.ammo[e.bullet] = 0
+		end
 	elseif(e.id == "addAmmo") then
 		self.ammo[e.bullet] = self.ammo[e.bullet] + e.amount
 	end

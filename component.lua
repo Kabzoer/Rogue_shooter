@@ -16,6 +16,7 @@ require 'components/remove'
 require 'components/grenade'
 require 'components/laser'
 require 'components/ammoBox'
+require 'components/food'
 
 
 --[[

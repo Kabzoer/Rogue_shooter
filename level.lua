@@ -1,3 +1,5 @@
+require 'tunneler'
+
 Level = {}
 
 c_fill = 1
@@ -6,6 +8,7 @@ c_wall = 128
 c_floor = 129
 c_floor2 = 130
 c_rubbish = 131
+c_vent = 132
 
 c_box = 144
 
@@ -18,12 +21,68 @@ function Level:load()
 	map_c = Map:new({120,120,140}) 
 
 	solid = Map:new(true)
-	blockFOV = Map:new(false)
+	blockFOV = Map:new(true)
+
+	self.tunnelers = {}
 end
 
 function Level:generate()
-	mapc = love.image.newImageData( "map2.png")
-	--mapGen
+	
+
+	self.space = 0
+	while(self.space<1500) do
+
+		self.space = 0
+		self:load()
+		local d = Dir:random()
+		table.insert(self.tunnelers, Tunneler:new(Pos:new(Map.w/2,Map.h/2), d))
+		table.insert(self.tunnelers, Tunneler:new(Pos:new(Map.w/2,Map.h/2),-d))
+
+		while(#self.tunnelers > 0) do
+			Level:step()
+		end
+
+		print("Try: " .. self.space)
+	end
+	print("Finished floorplan.")
+
+
+	while(self.space<3500) do
+		local p = Pos:random()
+		local d = Dir:random()
+		while(true) do
+			if(p:get(map) == 0 and (p+d):get(map) ~= 0) then
+				break
+			end
+			p = Pos:random()
+			d = Dir:random()
+		end
+
+		makeRoom(p,d)
+
+	end
+	print("With rooms: " .. self.space)
+
+	for i=1,30 do 
+		local p = Pos:random()
+		local d = Dir:random()
+		while(true) do
+			if(p:get(map) == 0 and (p+d):get(map) ~= 0) then
+				break
+			end
+			p = Pos:random()
+			d = Dir:random()
+		end
+	    makeHall(p,d)
+	end
+	print("With halls: " .. self.space)
+	Level:decorate()
+	
+	print("DONE")
+
+
+ --[[
+ 	mapc = love.image.newImageData( "map2.png")
 	for x=0,mapc:getWidth()-1 do
 		for y=0,mapc:getHeight()-1 do
 			local r = mapc:getPixel(x,y)
@@ -39,9 +98,18 @@ function Level:generate()
 				self:put(p,"wall")
 			end
 		end
-	end
+	end]]
 
-	Level:decorate()
+	--Level:decorate()
+end
+
+function Level:step()
+	for i,v in pairs(self.tunnelers) do
+		v:update()
+		if(v.dead) then
+			self.tunnelers[i] = nil
+		end
+	end
 end
 
 function Level:decorate()
@@ -77,8 +145,8 @@ function Level:decorate()
 		end
 	end
 
- 	for x=0,mapc:getWidth()-1 do
-		for y=0,mapc:getHeight()-1 do
+ 	for x=0,Map.w do
+		for y=0,Map.h do
 			local p = Pos:new(x,y)
 			if(p:get(map) == 0) then
 				local r = math.random()
@@ -133,6 +201,7 @@ function Level:makeWire(p,d,ch,col)
 end
 
 function getR(d1,d2)
+	-- dit scriptje kan wel wat comments gebruiken
 	local r1 = (-d1).r
 	local r2 = d2.r
 	if(r1>r2) then
@@ -163,11 +232,12 @@ function Level:put(p,type)
 		p:set(blockFOV,true)
 
 	elseif(type == "floor") then
-		p:set(map,0)
-		p:set(map_c,{40,40,60})
-		p:set(solid,false)
-		p:set(blockFOV,false)
-
+		if(p:inBounds()) then
+			p:set(map,0)
+			p:set(map_c,{40,40,60})
+			p:set(solid,false)
+			p:set(blockFOV,false)
+		end
 	elseif(type == "door closed") then
 		p:set(map,toChar('+'))
 		p:set(blockFOV,true)
@@ -194,6 +264,11 @@ function Level:put(p,type)
 			end
 		end
 
+		p:set(solid,false)
+		p:set(blockFOV,false)
+	elseif(type == "vent") then
+		p:set(map_c,{150,150,200})
+		p:set(map,c_vent)
 		p:set(solid,false)
 		p:set(blockFOV,false)
 	end

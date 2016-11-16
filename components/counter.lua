@@ -1,3 +1,12 @@
+--[[
+ Action times:
+ fast: 5	ex: shooting pistol
+ normal: 10		ex: most actions
+ slow: 25 		ex: moving
+ slowWW: 100 	ex: reload, use injector
+]]
+
+
 Counter = {}
 
 function Counter:new(time)

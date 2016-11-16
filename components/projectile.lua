@@ -38,7 +38,6 @@ function Projectile:event(e)
 			self:move()
 		end
 	elseif(e.id == "use") then
-		--e.entity:event("wait",{time = 10}) no bueno
 		self.active = true
 		--calculate speed vector
 

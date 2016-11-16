@@ -1,8 +1,25 @@
+--[[
+Base priority should always be limit case! (-> never return higher)
+
+]]
+
 P_NONE = 0
-P_LOW = 20
+P_LOW = 25
 P_NORMAL = 100
-P_HIGH = 500
-P_HIGHEST = 1000
+P_HIGH = 200
+P_HIGHEST = 500
+
+local function logistic(x,k,half)
+	k = k or 1
+	half = half or 0
+	return 1/(1+ math.exp(-k*(x-half)))
+end
+
+local function expo(x,slope)
+	slope = slope or 1
+	return 1 - math.exp(-x*slope)
+end
+
 
 Behaviour = {}
 
@@ -31,11 +48,13 @@ function Wander:new()
 	setmetatable(new, self)
 	self.__index = self
 
+	new.priority = 1
+
 	return new
 end
 
 function Wander:execute()
-	if(math.random()<0.3) then
+	if(math.random()<0.1) then
 		if(math.random()<0.5) then
 			self.ai.dir = self.ai.dir+1
 		else
@@ -61,7 +80,7 @@ function Flee:new(team,base)
 end
 
 function Flee:evaluate()
-	self.priority = self.baseP*self.ai.senses.teamScore[self.team]
+	self.priority = self.baseP*expo(self.ai.senses.teamScore[self.team],2)
 end
 
 function Flee:execute()
@@ -112,15 +131,57 @@ function Approach:new(team,base)
 end
 
 function Approach:evaluate()
-	if(self.ai.senses.teamScore[self.team] > 0) then
-		self.priority = self.baseP
-	else
-		self.priority = 0
-	end
+	self.priority = self.baseP*expo(self.ai.senses.teamScore[self.team] + self.ai.owner.pos:get(scent)/30,2)
 end
 
 function Approach:execute()
-	self.ai:followDijkstra(teamD[self.team])
+	if(self.ai.senses.teamScore[self.team] > 0) then
+		self.ai:followDijkstra(teamD[self.team])
+	else
+		self.ai:followSmell()
+	end
+	
 	self.ai.owner:event("move",{dir = self.ai.dir})
 end
 
+FindFood = {}
+setmetatable( Approach, { __index = Behaviour } )
+
+function FindFood:new(base)
+	local new = Behaviour:new()
+	setmetatable(new, self)
+	self.__index = self
+
+	new.priority = 0
+	new.baseP = base or P_NORMAL
+
+	new.time = math.random(100)
+
+	return new
+end
+
+function FindFood:evaluate()
+	if(self.ai.owner.pos:get(meatD) < math.huge) then
+		self.priority = self.baseP*logistic(self.time,0.05,100)
+	else
+		self.priority = 0
+	end
+	self.time = self.time + 1
+end
+
+function FindFood:execute()
+	if(self.ai.owner.pos:get(meatD)>1) then
+		self.ai:followDijkstra(meatD)
+		self.ai.owner:event("move",{dir = self.ai.dir})
+	else
+		for k,v in pairs(Dir:getAll()) do
+			for l,w in pairs((self.ai.owner.pos+v):getEntities()) do
+				if(w.food) then
+					w:event("eat")
+					self.ai.owner:event("wait",{time = 50})
+					self.time = 0
+				end
+			end
+		end
+	end
+end

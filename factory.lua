@@ -26,9 +26,13 @@ function factory.player()
 end
 
 
-function factory.corpse(name)
-	local new = Entity:new('%',{120,20,40}, name  .. " corpse")
+function factory.corpse(e)
+	local new = Entity:new('%',{120,20,40}, e.name  .. " corpse")
 	new.solid = false
+	new:addComponent(Food:new(math.floor(e.hp.maxHp/3)))
+
+	Level:put(e.pos,"blood")
+	--new:addComponent(Food:new(200))
 
 	return new
 end
@@ -41,7 +45,7 @@ function factory.rat()
 	factory.isCreature(new,3)
 	new.move.speed = 12
 
-	new:addComponent(Ai:new({Wander:new(), Flee:new("predator"), Flee:new("player",P_HIGH), Attack:new(P_NORMAL) }))
+	new:addComponent(Ai:new({Wander:new(), Flee:new("predator"), Flee:new("player",P_HIGH), Attack:new(P_LOW), FindFood:new() }))
 
 	local equipment = Equipment:new()
 	equipment:addSlot("attack",factory.bite())
@@ -51,14 +55,14 @@ function factory.rat()
 end
 
 function factory.cleaver()
-	local new = Entity:new('c', {90,50,120},"Cleaver")
+	local new = Entity:new('c', {120,50,160},"Cleaver")
 
 	new.team = "predator"
 
 	factory.isCreature(new,10)
-	new.move.speed = 7
+	new.move.speed = math.random(6,9)
 
-	new:addComponent(Ai:new({Wander:new(),Attack:new(), Approach:new("prey"), Approach:new("player",P_HIGH)}))
+	new:addComponent(Ai:new({Wander:new(),Attack:new(), Approach:new("prey",P_LOW), Approach:new("player",P_NORMAL), FindFood:new() }))
 
 	new:addComponent(Regenerate:new(200))
 

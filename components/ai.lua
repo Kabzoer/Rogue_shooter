@@ -85,7 +85,7 @@ function Ai:event(e)
 		--execute highest priority first, until an action is made
 		for k,v in ipairs(self.behaviours) do
 			if(self.owner.counter.time <= 0) then
-				if(v.priority > 0) then
+				if(v.priority >= 1) then
 					v:execute()
 				end
 			else
@@ -135,5 +135,28 @@ function Ai:followDijkstra(Dmap)
 		if(#list>0 and #list<4) then
 			self.dir = list[math.random(#list)]
 		end
+	end
+end
+
+function Ai:followSmell()
+	local p = self.owner.pos
+	--make a list of all lowest directions on dijkstra neighborhood
+	local s = p:get(scent)-1
+	local list = {}
+	for i,v in pairs(Dir:getAll()) do
+		if((p+v):passable()) then
+			local val = (p+v):get(scent)
+
+			if(val > s) then
+				s = val
+				list = {v}
+			elseif(val == s) then
+				table.insert(list,v)
+			end
+		end
+	end
+	--select a random direction from this list
+	if(#list>0 and #list<4) then
+		self.dir = list[math.random(#list)]
 	end
 end

@@ -56,10 +56,12 @@ function Gun:event(e)
 end
 
 function Gun:reload(entity)
-	local e = entity:event("reload",{bullet = self.bullet, amount = self.magSize})
+	local a = self.magSize - self.mag
 
-	self.mag = e.amount
-	if(self.mag>0) then
+	local e = entity:event("getAmmo",{bullet = self.bullet, amount = a})
+
+	self.mag = self.mag + e.amount
+	if(e.amount>0) then
 		entity:event("wait",{time = self.reloadTime})
 	end
 end

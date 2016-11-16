@@ -60,7 +60,7 @@ function Dijkstra:calculateMG(goals)
     local wq={} 
     local pq={}
 
-
+    local start = love.timer.getTime()
 
     for _,v in pairs(goals) do
         if(not solid[v.x][v.y] ) then
@@ -68,8 +68,7 @@ function Dijkstra:calculateMG(goals)
             table.insert(wq, {v.x, v.y})
         end 
     end
- 
-
+    
     while true do
         while #wq>0 do
             local t=table.remove(wq,1)

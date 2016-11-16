@@ -14,7 +14,7 @@ function Senses:new(ai)
 	self.__index = self
 
 	--new.entities = {}
-	new.vRange = vision or 7                   --euclidian range
+	new.vRange = vision or 8                   --euclidian range
 	new.vRangeM = math.floor(new.vRange*math.sqrt(2)) --max manhattan range
 	new.ai = ai
 
@@ -24,6 +24,7 @@ function Senses:new(ai)
 	end
 
 	new.meleeEnemy = nil
+	new.smell = true
 
 	return new
 end

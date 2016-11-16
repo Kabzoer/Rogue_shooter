@@ -11,7 +11,7 @@ end
 
 function Scent:event(e)
 	if(e.id == "update") then
-		self.owner.pos:set(scent,100)
+		self.owner.pos:set(scent,30)
 	end
 
 	return e

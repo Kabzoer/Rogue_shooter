@@ -78,8 +78,8 @@ function Graphics:calculate()
 				local c = p:get(map_c)
 				local bc = p:get(damageColor)
 
-				--[[if(mouseD[p.x] and mouseD[p.x][p.y]) then
-					bc = {(teamF["predator"][p.x][p.y])*2,0,0}
+				--[[if(scent[p.x] and scent[p.x][p.y]) then
+					bc = {p:get(scent)*4,0,0}
 				end]]
 
 				if(char == c_wall) then
@@ -130,6 +130,33 @@ function Graphics:calculate()
 	particles:draw()
 end 
 
+
+function Graphics:drawMap()
+	local px = 8
+	local py = 8*(Map.sh+1)
+	local list = {}
+	for x=0,Map.w do
+		for y=0,Map.h do
+			--if(FOV[x][y] > 0) then
+
+				v = 20
+
+				if(map[x][y] == c_wall) then
+					v = v + 80
+				end
+				
+				--v = v + 30*math.floor(FOV[x][y]+0.4)
+				--[[love.graphics.setColor(100, 100, 100,75)
+				
+				love.graphics.rectangle("fill", px + x*1, py + y*1, 1, 1)]]
+				table.insert(list,{px + x,py + y, v,v,v})
+			--end
+		end
+	end
+	love.graphics.setColor(255, 255, 255,255)
+	love.graphics.points(list)
+end 
+
 function Graphics:reset(x,y) 
 	self.screen[x][y] = 0
 	self.bg_c[x][y] = {0,0,0}
@@ -137,11 +164,11 @@ function Graphics:reset(x,y)
 	self.overlay[x][y] = false
 end
 
-function Graphics:put(char,c,x,y,z,particle) 
+function Graphics:put(char,c,x,y,z,overlay) 
 	if z >= self.zbuffer[x][y] then
 		self.screen[x][y] = char
 		self.screen_c[x][y] = c
 		self.zbuffer[x][y] = z
-		self.overlay[x][y] = particle
+		self.overlay[x][y] = overlay
 	end
 end

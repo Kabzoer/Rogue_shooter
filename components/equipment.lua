@@ -29,6 +29,10 @@ function Equipment:event(e)
 				break
 			end
 		end
+	elseif(e.id == "reload") then
+		for k,v in pairs(self.slots) do
+			v:event(e)
+		end
 	elseif(e.id == "update") then
 		for k,v in pairs(self.slots) do
 			v:event(e)

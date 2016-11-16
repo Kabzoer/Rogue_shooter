@@ -11,12 +11,13 @@ function gui:load()
 	self.w = 18
 	self.h = Map.sh
 
-	self.dscw = 29
-	self.dsch = Map.h-Map.sh
+	self.w_dsc = 29
+	self.h_dsc = Map.sh
 
-	self.plyStr = Cstring:new()
-	self.invStr = Cstring:new()
-	self.dscStr = Cstring:new()
+
+	self.str_player = Cstring:new()
+	self.str_inv = Cstring:new()
+	self.str_dsc = Cstring:new()
 end 
 
 function gui:mousepressed(button)
@@ -39,14 +40,14 @@ function gui:update()
 		self.highlight = -1
 	end
 
-	self.plyStr = Cstring:new()
-	self.invStr = Cstring:new()
-	self.dscStr = Cstring:new()
+	self.str_player = Cstring:new()
+	self.str_inv = Cstring:new()
+	self.str_dsc = Cstring:new()
 
 	local c = player.hp:getDescription().color[1]
 	local hp,maxHp = player.hp:getHp()
 
-	self.plyStr = 
+	self.str_player = 
 	player:getName() .. "\n" ..
 	Cstring:new(hp .. "/" .. maxHp,c) .. "\n" .. "\n" .. "\n" .. "\n" .. "\n" .."\n"
 
@@ -54,12 +55,12 @@ function gui:update()
 	for i in ipairs(player.equipment.slots) do
 		if(player.equipment.slots[i].item and player.equipment.slots[i].item.gun) then
 			local gun = player.equipment.slots[i].item.gun
-			self.plyStr = self.plyStr .. gun.bullet.name .. ": " .. player.inventory.ammo[gun.bullet] .. "\n"
+			self.str_player = self.str_player .. gun.bullet.name .. ": " .. player.inventory.ammo[gun.bullet] .. "\n"
 			for j = 1 , gun.magSize do
 				if(j<=gun.mag) then
-					self.plyStr = self.plyStr .. string.char(c_ammoF)
+					self.str_player = self.str_player .. string.char(c_ammoF)
 				else
-					self.plyStr = self.plyStr .. string.char(c_ammo)
+					self.str_player = self.str_player .. string.char(c_ammo)
 				end
 			end
 			
@@ -88,7 +89,7 @@ function gui:update()
 		self:info(player.inventory.items[self.highlight][1])
 	end
 
-	self.invStr = Cstring:new("------------------",{100,100,100})
+	self.str_inv = Cstring:new("------------------",{100,100,100})
 
 	for i=1,20 do
 		local s =  Cstring:new()
@@ -115,13 +116,13 @@ function gui:update()
 			end
 		end
 		s = s .. "\n"
-		self.invStr = self.invStr .. s
+		self.str_inv = self.str_inv .. s
 	end
 end
 
 function gui:info(e)
 	if(e) then
-		self.dscStr = e:getName() .. "\n" .. e:event("description",{s = Cstring:new()}).s
+		self.str_dsc = e:getName() .. "\n" .. e:event("description",{s = Cstring:new()}).s
 	end
 end
 
@@ -155,13 +156,13 @@ function gui:draw()
 		batch:add(quads[18],41*8,y*8)
 	end
 
-	for y=self.dsch+2,Map.h do
+	for y=self.h_dsc+2,Map.h do
 		batch:setColor(150,150,150)
 		batch:add(quads[18],30*8,y*8)
 	end
 
 
-	self.plyStr:draw(self.x,self.y,self.w)
-	self.invStr:draw(self.x,self.y+9,self.w)
-	self.dscStr:draw(self.x-(self.dscw-self.w),self.y+31,self.dscw)
+	self.str_player:draw(self.x, self.y, self.w)
+	self.str_inv:draw(self.x, self.y+9, self.w)
+	self.str_dsc:draw(self.x - (self.w_dsc-self.w), self.y+self.h_dsc+1, self.w_dsc)
 end
