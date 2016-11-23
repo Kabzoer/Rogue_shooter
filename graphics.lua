@@ -48,19 +48,21 @@ function Graphics:draw()
 	end
 	
 	gui:draw()
-	console:draw()
+	--console:draw()
 
 	--draw mouse highlight
 	if(mouseX < Map.sw and mouseY < Map.sh) then
 		local mp = mouseP - view
-		batch:setColor(255,255,255,100)
-		batch:add(quads[c_select],mp.x*8-offsetx,mp.y*8-offsety)
+		Graphics:drawGlyph(c_select,{100,100,100},1,mp.x,mp.y)
 	end
 end 
 
 function Graphics:drawGlyph(char,c,f,x,y)
 	batch:setColor({c[1]*f,c[2]*f,c[3]*f})
-	batch:add(quads[char],x*8-offsetx,y*8-offsety)
+	--local xx = math.floor(4*math.sin(y/10+t/80))
+	--local yy = math.floor(4*math.sin(x/10-t/80))
+
+	batch:add(quads[char],x*8-offsetx ,y*8-offsety)
 end
 
 function Graphics:calculate()
@@ -79,19 +81,20 @@ function Graphics:calculate()
 				local bc = p:get(damageColor)
 
 				--[[if(scent[p.x] and scent[p.x][p.y]) then
-					bc = {p:get(scent)*4,0,0}
+					bc = {p:get(teamF["player"])*10,0,0}
 				end]]
 
 				if(char == c_wall) then
 					bc = c
 					z = 5
 				end
+				--[[if(p:get(blockFOV)) then
+					z = 5
+				end]]
 				
 				Graphics:put(char,c,x,y,z)
 				--print(z)
 				self.bg_c[x][y] = bc
-
-				
 			end
 
 
@@ -100,7 +103,7 @@ function Graphics:calculate()
 
 	for i,v in pairs(entities) do
 		local p = v.pos
-		local z = 2
+		local z = v.z
 		local char = 0
 		local c = {100,100,100}
 		local f = p:get(FOV)
@@ -112,10 +115,6 @@ function Graphics:calculate()
 				if(v.blink and blink) then
 					c = {255,255,255-c[3]}
 				end
-			end
-
-			if(v.move) then
-				z = 3
 			end
 
 			if(char>0) then

@@ -5,7 +5,7 @@ factory = {}
 
 
 function factory.player()
-	local new = Entity:new('@',{60,180,180},"Jake Emmerson")
+	local new = Entity:new('@',{60,170,170},"Jake Emmerson")
 
 	new.team = "player"
 
@@ -28,11 +28,11 @@ end
 
 function factory.corpse(e)
 	local new = Entity:new('%',{120,20,40}, e.name  .. " corpse")
+	factory.isItem(new,5)
 	new.solid = false
 	new:addComponent(Food:new(math.floor(e.hp.maxHp/3)))
 
 	Level:put(e.pos,"blood")
-	--new:addComponent(Food:new(200))
 
 	return new
 end
@@ -53,6 +53,52 @@ function factory.rat()
 
 	return new
 end
+
+function factory.worm()
+	local new = Entity:new('w', {170,40,80}, "Giant worm (head)")
+
+	new.team = "prey"
+
+	factory.isCreature(new,40)
+	new.move.speed = 5
+
+	new:addComponent(Ai:new({Wander:new(), Attack:new()}))
+
+	local equipment = Equipment:new()
+	equipment:addSlot("attack",factory.bite())
+	new:addComponent(equipment)
+
+	local segments = {}
+	local len = math.random(3,6)
+	for i=1,len do
+		local c = "o"
+		if(i == len-1) then
+			c= "r"
+		elseif(i == len) then
+			c= "m"
+		end
+		local segment = factory.wormTail(c)
+		Level:addEntity(new.pos,segment)
+		table.insert(segments,segment)
+	end
+
+	new:addComponent(Tail:new(segments))
+
+	return new
+end
+
+function factory.wormTail(c)
+	local new = Entity:new(c, {150,30,60}, "Giant worm (body)")
+
+	new:addComponent(Hp:new(10))
+	new:addComponent(Corpse:new())
+	new.z = 4
+	new.solid = true
+
+	new:addComponent(Regenerate:new(50))
+	return new
+end
+
 
 function factory.cleaver()
 	local new = Entity:new('c', {120,50,160},"Cleaver")
@@ -200,6 +246,7 @@ function factory.doorSlide(p)
 end
 
 function factory.isCreature(e,hp)   
+	e.z = 4
 	e:addComponent(Move:new())
 	e:addComponent(Counter:new(math.random(10)))
 	e:addComponent(Hp:new(hp))
@@ -208,6 +255,7 @@ function factory.isCreature(e,hp)
 end
 
 function factory.isItem(e,stack)
+	e.z = 3
 	e.item = true
 	e.maxStack = stack or 1
 	e.solid = false

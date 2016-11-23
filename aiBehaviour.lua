@@ -9,13 +9,13 @@ P_NORMAL = 100
 P_HIGH = 200
 P_HIGHEST = 500
 
-local function logistic(x,k,half)
+function logistic(x,k,half)
 	k = k or 1
 	half = half or 0
 	return 1/(1+ math.exp(-k*(x-half)))
 end
 
-local function expo(x,slope)
+function expo(x,slope)
 	slope = slope or 1
 	return 1 - math.exp(-x*slope)
 end
@@ -49,19 +49,29 @@ function Wander:new()
 	self.__index = self
 
 	new.priority = 1
+	new.turn = math.random(3,20)
 
 	return new
 end
 
 function Wander:execute()
-	if(math.random()<0.1) then
+	self.turn = self.turn - 1
+	if(self.turn <= 0) then
+		if(math.random()<0.5) then
+			self.ai.dir = self.ai.dir+1
+		else
+			self.ai.dir = self.ai.dir-1
+		end
+		self.turn = math.random(3,20)
+	end
+	self.ai.owner:event("move",{dir = self.ai.dir})
+	if(self.ai.owner.counter.time <= 0) then
 		if(math.random()<0.5) then
 			self.ai.dir = self.ai.dir+1
 		else
 			self.ai.dir = self.ai.dir-1
 		end
 	end
-	self.ai.owner:event("move",{dir = self.ai.dir})
 end
 
 Flee = {}
@@ -109,6 +119,7 @@ function Attack:evaluate()
 	else
 		self.priority = P_NONE
 	end
+
 end
 
 function Attack:execute()

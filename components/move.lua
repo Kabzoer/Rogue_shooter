@@ -17,13 +17,14 @@ function Move:event(e)
 		local np = self.owner.pos + dir
 
 		if np:passable(true) then
+			local cost =  np:get(moveCost)
 			self.owner.pos = np
-			self.owner:event( "wait", {time = 100/self.speed} )
+			self.owner:event( "wait", {time = cost*100/self.speed} )
 			
-			--self.dijkstra:calculate(self.owner.pos)
-			--self.flee:calculateFlee(self.dijkstra,20)
-
-			
+			if(self.owner == player) then
+				teamD["player"]:calculate(self.owner.pos)
+				teamF["player"]:calculateFlee(teamD["player"])
+			end
 		end
 	end
 

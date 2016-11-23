@@ -9,6 +9,9 @@ c_floor = 129
 c_floor2 = 130
 c_rubbish = 131
 c_vent = 132
+c_plant = 224
+c_plant2 = 225
+c_plant3 = 226
 
 c_box = 144
 
@@ -19,6 +22,8 @@ c_pipe = 192
 function Level:load()
 	map = Map:new(c_wall) 
 	map_c = Map:new({120,120,140}) 
+
+	moveCost = Map:new(1) 
 
 	solid = Map:new(true)
 	blockFOV = Map:new(true)
@@ -63,7 +68,7 @@ function Level:generate()
 	end
 	print("With rooms: " .. self.space)
 
-	for i=1,30 do 
+	for i=1,20 do 
 		local p = Pos:random()
 		local d = Dir:random()
 		while(true) do
@@ -75,6 +80,14 @@ function Level:generate()
 		end
 	    makeHall(p,d)
 	end
+
+	--[[local t = Tunneler:new(Pos:random())
+	t.w = 1
+	table.insert(self.tunnelers, t)
+	while(#self.tunnelers > 0) do
+		Level:step()
+	end]]
+
 	print("With halls: " .. self.space)
 	Level:decorate()
 	
@@ -114,7 +127,7 @@ end
 
 function Level:decorate()
 	local numGenerated = 0
-	while (numGenerated < 25) do
+	while (numGenerated < 15) do
 		local p = Pos:random()
 		local d = Dir:random()
 		if(p:get(map)==0) then
@@ -149,11 +162,26 @@ function Level:decorate()
 		for y=0,Map.h do
 			local p = Pos:new(x,y)
 			if(p:get(map) == 0) then
-				local r = math.random()
-				if(r<0.2) then
-					p:set(map,c_floor)
-				elseif(r<0.5) then
-					p:set(map,c_floor2)
+				local noise = love.math.noise(x/10,y/10)
+				if(noise<0.15) then
+					p:set(map_c,{math.random()*80,80+math.random()*70,0})
+					p:set(moveCost,2)
+					local r = math.random()
+					if(noise<0.05) then
+						p:set(map,c_plant)
+						p:set(blockFOV,true)
+					elseif(noise<0.10) then
+						p:set(map,c_plant2)
+					else
+						p:set(map,c_plant3)
+					end
+				else
+					local r = math.random()
+					if(r<0.2) then
+						p:set(map,c_floor)
+					elseif(r<0.5) then
+						p:set(map,c_floor2)
+					end
 				end
 			end
 		end

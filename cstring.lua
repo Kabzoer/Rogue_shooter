@@ -54,6 +54,20 @@ function Cstring:draw(x,y,w)
 	end
 end
 
+function Cstring:shorten(len)
+
+	for i = 1, #self.string do
+		if(i > len) then
+			--self.string[i] = nil
+			self.color[i] = nil
+		end
+	end
+	if(#self.string > len) then
+		self.string = self.string:sub(1,len-2) .. ".."
+	end
+end
+
+
 function Cstring.concat(s1,s2)
 	if(type(s1) == "string") then
 		s1 = Cstring:new(s1)

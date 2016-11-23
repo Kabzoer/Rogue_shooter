@@ -34,8 +34,9 @@ vec4 effect(vec4 colour, Image tex, vec2 tc, vec2 sc)
       vec2 offset = vec2(x, y) * sizeFactor;
       vec4 t = Texel(tex, tc + offset);
       //t = max(vec4(0),t-0.2)*1.2;
-      t = t*t*1.8;
+      t = t*t*1.6;
       //t = t*1.1;
+     // t = t*t*t*2.3;
       sum += t*getWeight(x,y);
     }
   }

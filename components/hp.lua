@@ -15,7 +15,10 @@ end
 
 function Hp:event(e)
 	if(e.id == "hit") then
+		--local start = love.timer.getTime()
+
 		self.hp = self.hp - e.damage
+		
 
 		local c = {160,20,20+math.random()*50}
 		if(self.owner == player) then
@@ -28,6 +31,8 @@ function Hp:event(e)
 				Level:put(self.owner.pos,"blood")
 			end
 		end
+		--local result = love.timer.getTime() - start
+		--print( string.format( "It took %.6f milliseconds to calculate hit", result * 1000 ))
 	elseif(e.id == "update") then
 		if(self:getState() == "boosted") then
 			self.owner.blink = true
@@ -36,12 +41,11 @@ function Hp:event(e)
 		end
 
 		if(self.hp>self.maxHp) then
-			-- boosted, so slowly "bleed"
+			--boosted, so slowly "bleed"
 			self.hp = self.hp - 0.02
 		end
 
 		if(self.hp <= 0) then
-			self.owner:event("death")
 			self.owner.dead = true
 		end
 	elseif(e.id == "boost") then

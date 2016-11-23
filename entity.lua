@@ -13,6 +13,7 @@ function Entity:new(chr,clr,name)
 	new.color = clr or {150,150,150}
 	new.dead = false
 	new.solid = true
+	new.z = 2
 	--new.visible = true
 	new.name = name or "noName"
 

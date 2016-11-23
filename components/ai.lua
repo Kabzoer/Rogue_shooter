@@ -1,11 +1,5 @@
 --[[
-AI: 
-make different AI 'modes'. Every enemy AI is defined as a state machine 
-different AI's are simply defined by reacting to triggers and changing the state
--maybe add a priority to each state, to choose when conflicts happen (no flip-flopping)
--add single triggered responses e.g. use special ability when health low
-
-also make some variables to define senses
+make some variables to define senses
 erratic = chance of random movement even when attacking
 alertness = time since seeing enemy
 
@@ -23,17 +17,13 @@ modes:
 	...
 
 Flee: 
-	- take cover: move to nearest position out of player fov
+	- take cover: move to nearest position out of player fov => reload ranged
 	- flee: movebackwards from smell path (getting cornered? -> highly connective map so no problem probably)
 	   -> maybe keep a universal dead-end map
 
 
 difficulties:
 	how to handle inventory/pickups by monsters?.
-
-Mix of the two:
- high level state machine (idle, sleeping, hunting, running)
- low level utility selector
 
 Utility:
 	http://gdcvault.com/play/1012410/Improving-AI-Decision-Modeling-Through
@@ -59,9 +49,7 @@ function Ai:new(b)
 
 	new.senses = Senses:new(new)
 
-	new.dijkstra = nil
-	new.memory = 500
-	new.mTimer = new.memory
+	
 
 	return new
 end
@@ -102,11 +90,6 @@ function Ai:event(e)
 		--if doing nothing or action failed: wait
 		if(self.owner.counter.time <= 0) then
 			self.owner:event("wait", {time = 10})
-		end
-	elseif(e.id == "update") then
-		self.mTimer = self.mTimer + 1
-		if(self.mTimer == self.memory) then
-			self.dijkstra = nil
 		end
 	end
 	return e

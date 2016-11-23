@@ -11,6 +11,8 @@ function gui:load()
 	self.w = 18
 	self.h = Map.sh
 
+	self.x_inv = 15
+
 	self.w_dsc = 29
 	self.h_dsc = Map.sh
 
@@ -34,8 +36,8 @@ end
 
 function gui:update()
 	local y = math.floor(mouseY)
-	if(mouseX>=Map.sw and 11<=y and y<= 30) then
-		self.highlight = y-10
+	if(mouseX>=Map.sw and 11<=y and y-self.x_inv<= 20) then
+		self.highlight = y-self.x_inv
 	else
 		self.highlight = -1
 	end
@@ -49,35 +51,39 @@ function gui:update()
 
 	self.str_player = 
 	player:getName() .. "\n" ..
-	Cstring:new(hp .. "/" .. maxHp,c) .. "\n" .. "\n" .. "\n" .. "\n" .. "\n" .."\n"
+	Cstring:new(hp .. "/" .. maxHp,c) .. "\n" .. "\n" .. "\n" .. "\n" .. "\n" .."\n" .."\n" .."\n" .."\n" .."\n" .."\n"
 
 
 	for i in ipairs(player.equipment.slots) do
-		if(player.equipment.slots[i].item and player.equipment.slots[i].item.gun) then
-			local gun = player.equipment.slots[i].item.gun
-			self.str_player = self.str_player .. gun.bullet.name .. ": " .. player.inventory.ammo[gun.bullet] .. "\n"
-			for j = 1 , gun.magSize do
-				if(j<=gun.mag) then
-					self.str_player = self.str_player .. string.char(c_ammoF)
-				else
-					self.str_player = self.str_player .. string.char(c_ammo)
+		local item = player.equipment.slots[i].item
+		if(item) then
+			if(item.gun) then
+				local gun = item.gun
+				self.str_player = self.str_player .. gun.bullet.name .. ": " .. player.inventory.ammo[gun.bullet] .. "\n"
+				for j = 1 , gun.magSize do
+					if(j<=gun.mag) then
+						self.str_player = self.str_player .. string.char(c_ammoF)
+					else
+						self.str_player = self.str_player .. string.char(c_ammo)
+					end
 				end
+			elseif(item.laser) then
+				local gun = item.laser
+				self.str_player = self.str_player .. "\n" .. gun.bullet.name .. ": " .. player.inventory.ammo[gun.bullet] .. "\n"
 			end
-			
 		end
 	end
 	
 
 	if(mouseP:get(FOV) > 0.5) then
 		local list = mouseP:getEntities()
-		local getInfo = list[#list]
+		local getInfo = nil
+
+		local z = 0
 		for i,v in pairs(list) do
-			if(v.solid) then
+			if(v.z > z) then
+				z = v.z
 				getInfo = v
-			end
-			if(v.item) then
-				getInfo = v
-				break
 			end
 
 		end
@@ -104,7 +110,9 @@ function gui:update()
 		if(item) then
 			if(item.maxStack > 1) then
 				local n = # player.inventory.items[i]
-				s = s .. Cstring:new(n .. "x", {120,120,120})
+				if(n > 1) then
+					s = s .. Cstring:new(n .. "x", {120,120,120})
+				end
 			end
 			
 			s = s .. Cstring:new(item.name, item.color)
@@ -116,6 +124,10 @@ function gui:update()
 			end
 		end
 		s = s .. "\n"
+		s:shorten(18)
+
+		--s.string = string.sub(s.string, 1,10)
+		
 		self.str_inv = self.str_inv .. s
 	end
 end
@@ -133,36 +145,36 @@ function gui:draw()
 		local item = player.inventory.items[i][1]
 		if(player.equipment:isEquipped(item)) then
 			for j=1,self.w do
-				batch:setColor(10,10,10)
-				batch:add(quads[c_fill],(j-1+self.x)*Graphics.cw,(i+10-1+self.y)*Graphics.cw)
+				batch:setColor(255,255,255,30)
+				batch:add(quads[c_fill],(j-1+self.x)*Graphics.cw,(i-1+self.x_inv+self.y)*Graphics.cw)
 			end
 		end
 	end
 
 	if(self.highlight>0) then
 		for i=1,self.w do
-			batch:setColor(30,30,30)
-			batch:add(quads[c_fill],(i-1+self.x)*Graphics.cw,(self.highlight+10-1+self.y)*Graphics.cw)
+			batch:setColor(255,255,255,15)
+			batch:add(quads[c_fill],(i-1+self.x)*Graphics.cw,(self.highlight-1+self.x_inv+self.y)*Graphics.cw)
 		end
 	end
 
-	for x=0,Map.w do
+	for x=0,Map.sw do
 		batch:setColor(150,150,150)
 		batch:add(quads[16],x*8,31*8)
 	end
 
-	for y=0,self.h do
+	for y=0,44 do
 		batch:setColor(150,150,150)
 		batch:add(quads[18],41*8,y*8)
 	end
 
-	for y=self.h_dsc+2,Map.h do
+	--[[for y=self.h_dsc+2,Map.h do
 		batch:setColor(150,150,150)
 		batch:add(quads[18],30*8,y*8)
-	end
+	end]]
 
 
 	self.str_player:draw(self.x, self.y, self.w)
-	self.str_inv:draw(self.x, self.y+9, self.w)
-	self.str_dsc:draw(self.x - (self.w_dsc-self.w), self.y+self.h_dsc+1, self.w_dsc)
+	self.str_inv:draw(self.x, self.y+self.x_inv-1, self.w)
+	self.str_dsc:draw(1, self.y+self.h_dsc+1, self.w_dsc)
 end

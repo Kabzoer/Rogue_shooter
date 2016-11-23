@@ -7,7 +7,7 @@ TODO
 [x] pick-up
 [x] doors
 [x] graphics handling + z-buffer
-[x] fix damage class (no typessss???)
+[x] fix damage class
 [x] AoE damage (cone,circle,line)
 [x] colored string class
 [x] ammo/bullet handling
@@ -18,35 +18,37 @@ TODO
 [x] make 2 more items
 [x] make movement faster in relation to other actions
 [x] slide door
-[-] visual ammo/reloading
 [x] ammo drops
-[ ] entity z-score + use z-score for info
-[ ] fix console Cstring (remove console??)
-[x] ai vision
-[ ] ai pathing?
-[ ] implement AI states/trees/utility?
-[ ] make more enemies
 [x] particles
 [x] redesign hp
-[ ] ongoing effects
-[ ] crits
+[x] level gen
+[x] ai vision
+[x] ai pathing?
+[x] implement AI states/trees/utility?
+[-] visual ammo/reloading
+[ ] add fleeing
+[ ] make ranged enemy
+[ ] effects system (~ damage types)
+[ ] ongoing status effects
+[ ] fix console Cstring (remove console??)
+[ ] crits?
 [ ] armor
-[ ] plants and messy stuff
+[ ] generate treasure rooms w/ enemies
+[ ] add vents
 [ ] sound implementation
 [ ] how to handle automatic guns vs non-automatic?
 [ ] sound implementation
-[-] design level scenery (organic forms, neon things) 
-[ ] plants
-[ ] slow terrain
+[ ] more level scenery
+[x] plants
+[x] slow terrain -> Dijkstra?
 [ ] widescreen support (variable resolution or emulated monitor?) 
-[ ] bigger levels
 [ ] level loading en exits
-[ ] level gen (rotlove, astray?)
 [ ] basic sfxr sounds
 [ ] sound generation
-[ ] gun knockback :P
+[ ] gun knockback 
 [ ] destructible terrain??
 [ ] generative music system
+[ ] digging worms (can go through walls or underground?)
 ]]
 
 require 'cstring'
@@ -59,8 +61,11 @@ require 'map'
 require 'dijkstra'
 require 'pos'
 require 'gui'
-require 'console'
+--require 'console'
 require 'particles'
+
+--print console directly
+io.stdout:setvbuf("no")
 
 --set window & canvas
 width = 960  
@@ -124,7 +129,7 @@ function love.load()
 	batch = love.graphics.newSpriteBatch(font, 3000,"stream")
 
 	gui:load()
-	console:load()
+	--console:load()
 	Cstring:load()
 
 	scent = Map:new(0)
@@ -146,20 +151,25 @@ function love.load()
 	player.pos = Pos:new(40,30)
 	Level:addRandom(player)
 	
-	for i=1,30 do 
+	for i=1,20 do 
 		Level:addRandom(factory.rat())
 	end
 
-	for i=1,15 do 
+	for i=1,6 do 
+		Level:addRandom(factory.worm())
+	end
+
+	for i=1,10 do 
 		Level:addRandom(factory.cleaver())
 	end
+
 
 	for i=1,3 do 
 		Level:addRandom(factory.staminaBoost())
 		Level:addRandom(factory.staminaBoost2())
 	end
 
-	for i=1,3 do 
+	for i=1,2 do 
 		Level:addRandom(factory.shotgun())
 		Level:addRandom(factory.laser())
 		Level:addRandom(factory.grenade())
@@ -225,16 +235,17 @@ function act(dt)
 
 		for k,v in ipairs(teams) do
 
-			if(k == t%10) then
+			if(k == t%10 and v ~= "player") then
 				list = {}
 				for j,e in pairs(entities) do
 					if(e.team == v) then
 						table.insert(list,e.pos)
 					end
 				end
-				--[[if(v == "prey" and #list<10) then
+				if(v == "prey" and #list<10) then
 					Level:addRandom(factory.rat())
-				end]]
+					print("added rat")
+				end
 
 				
 				teamD[v]:calculateMG(list)
@@ -256,10 +267,10 @@ function act(dt)
 		--update
 		for k,v in pairs(entities) do
 			if(entities[k].dead) then
+				entities[k]:event("death")
 				entities[k] = nil
 				if(v.hp) then
-					slowmo()
-					console:printDeath(v)
+					--console:printDeath(v)
 					particles:spawn(v.pos,"string",{s = "x_x", c = {180,20,20}})
 				end
 			else
@@ -334,7 +345,7 @@ function love.draw()
 	love.graphics.setColor( 255, 255, 255)
 	love.graphics.draw(batch)
 
-	Graphics:drawMap()
+	--Graphics:drawMap()
 
 	--draw FPS counter
 	love.graphics.setColor(150,100,150)
@@ -363,22 +374,22 @@ function love.draw()
 	love.graphics.setBlendMode("add")
 
 	love.graphics.setColor( shakeColor)
-	love.graphics.draw(canv,xo+shake*rnd()-hitShake-1,yo+shake*rnd()-1, 0, 2)
+	love.graphics.draw(canv,xo+shake*rnd()-hitShake+1,yo+shake*rnd()+1, 0, 2)
 	
 	love.graphics.setColor(255-shakeColor[1], 255-shakeColor[2], 255-shakeColor[3])
 	love.graphics.draw(canv,xo+shake*rnd()+hitShake  ,yo+shake*rnd()  , 0, 2)
 
 	--draw scanlines TODO: render without image
 	love.graphics.setBlendMode("alpha")
-	love.graphics.setColor(255, 255, 255,math.min(255,100 + hitShake*100))
+	love.graphics.setColor(255, 255, 255,math.min(255,120 + hitShake*100))
 	love.graphics.draw(scanlines,xo,yo)
 
  	--draw bloom to screen
- 	love.graphics.setBlendMode("add")
+ 	love.graphics.setBlendMode("add", "premultiplied")
 	love.graphics.setColor( 255,255,255)
 	love.graphics.draw(blurCanvas,xo,yo, 0, 2)
 
-	love.graphics.setColor(10+hitShake*4,10,10)
+	love.graphics.setColor(5+hitShake*8,5,5)
 	love.graphics.rectangle("fill", xo, yo, width, height)
 	
 	
@@ -402,7 +413,7 @@ function love.keypressed(key)
 	elseif key == "g" then
 		godmode = not godmode
 		FOV = Map:new(0)  
-		console:println("Switched godmode", {150,150,0})
+		--console:println("Switched godmode", {150,150,0})
 	elseif key == "space" then
 		action = 'pickup'
 	elseif key == "r" then
@@ -434,6 +445,7 @@ function doFov()
 		local d = Pos:new(math.cos(a),math.sin(a))
 		local l = player.pos + Pos:new(math.random(),math.random()) --monte carlo sampling
 		for i = 0,12 do
+			l = l + d
 			local lf = l:floor()
 			if(i<8) then
 				lf:set(FOV,1.0)
@@ -443,7 +455,7 @@ function doFov()
 			if (lf:get(blockFOV)) then
 				break
 			end
-			l = l + d
+			
 		end
 	end
 	for x = -1,1 do
@@ -519,8 +531,8 @@ function moveView(dt)
 	local mouseY = math.min(mouseY,Map.sh)
 
 
-	viewPreFilter.x = lerp(viewPreFilter.x, (player.pos.x*0.8+(mouseX+viewPreFilter.x)*0.2)-20,dt*10)
-	viewPreFilter.y = lerp(viewPreFilter.y, (player.pos.y*0.8+(mouseY+viewPreFilter.y)*0.2)-15,dt*10)
+	viewPreFilter.x = lerp(viewPreFilter.x, (player.pos.x*0.9+(mouseX+viewPreFilter.x)*0.1)-20,dt*10)
+	viewPreFilter.y = lerp(viewPreFilter.y, (player.pos.y*0.9+(mouseY+viewPreFilter.y)*0.1)-15,dt*10)
 
 	view = viewPreFilter:floor()
 	

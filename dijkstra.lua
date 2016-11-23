@@ -24,6 +24,8 @@ end
 
 
 function Dijkstra:calculate(g)
+    
+
     self:reset()
 
     local passes=1
@@ -38,22 +40,31 @@ function Dijkstra:calculate(g)
     while true do
         while #wq>0 do
             local t=table.remove(wq,1)
+            local x = t[1]
+            local y = t[2]
             for _,d in pairs({{0,1},{0,-1},{1,0},{-1,0}}) do
-                local x=t[1]+d[1]
-                local y=t[2]+d[2]
-                if (not solid[x][y]) and self[x][y]>passes then
-                    self[x][y]=passes
-                    table.insert(pq,{x,y})
+                local xx=x+d[1]
+                local yy=y+d[2]
+                local newCost = self[x][y] + moveCost[xx][yy]
+                if (not solid[xx][yy]) and self[xx][yy]>newCost then
+                    self[xx][yy]=newCost
+                    if(newCost<20) then
+                        table.insert(pq,{xx,yy})
+                    end
                 end
             end
         end
-        if #pq<1 or passes>=20 then break end
+        if #pq<1 then break end
         passes=passes+1
         wq, pq = pq, wq
     end
+
+    
+
 end
 
 function Dijkstra:calculateMG(goals)
+
     self:reset()
 
     local passes=1
@@ -72,17 +83,21 @@ function Dijkstra:calculateMG(goals)
     while true do
         while #wq>0 do
             local t=table.remove(wq,1)
+            local x = t[1]
+            local y = t[2]
             for _,d in pairs({{0,1},{0,-1},{1,0},{-1,0}}) do
-                local x=t[1]+d[1]
-                local y=t[2]+d[2]
-                if (not solid[x][y]) and self[x][y]>passes then
-                    self[x][y]=passes
-                    table.insert(pq,{x,y})
+                local xx=x+d[1]
+                local yy=y+d[2]
+                local newCost = self[x][y] + moveCost[xx][yy]
+                if (not solid[xx][yy]) and self[xx][yy]>newCost then
+                    self[xx][yy]=newCost
+                    if(newCost<20) then
+                        table.insert(pq,{xx,yy})
+                    end
                 end
             end
         end
-
-        if #pq<1 or passes>=20 then break end
+        if #pq<1 then break end
         passes=passes+1
         wq, pq = pq, wq
     end
@@ -111,16 +126,20 @@ function Dijkstra:calculateFlee(map,dist)
     while true do
         while #wq>0 do
             local t=table.remove(wq,1)
+            local x = t[1]
+            local y = t[2]
             for _,d in pairs({{0,1},{0,-1},{1,0},{-1,0}}) do
-                local x=t[1]+d[1]
-                local y=t[2]+d[2]
-                if (not solid[x][y]) and self[x][y]>passes then
-                    self[x][y]=passes
-                    table.insert(pq,{x,y})
+                local xx=x+d[1]
+                local yy=y+d[2]
+                local newCost = self[x][y] + moveCost[xx][yy]
+                if (not solid[xx][yy]) and self[xx][yy]>newCost then
+                    self[xx][yy]=newCost
+                    --if(newCost<20) then
+                        table.insert(pq,{xx,yy})
+                    --end
                 end
             end
         end
-
         if #pq<1 then break end
         passes=passes+1
         wq, pq = pq, wq

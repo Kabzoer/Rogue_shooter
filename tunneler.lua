@@ -10,7 +10,8 @@ function Tunneler:new(pos,dir)
 
 	new.dir = dir or Dir:random()
 
-	new.time = math.random(10,100)
+	new.time = 0
+	new.maxTime = math.random(10,120)
 	new.dead = false
 
 	new.turn = math.random(10,20)
@@ -41,19 +42,9 @@ function Tunneler:update()
 
 	self.pos = self.pos + self.dir
 
-	if((self.pos):get(map) == 0 and self.time>3) then
+	if((self.pos):get(map) == 0 and self.time>5) then
 		self.dead = true
 	end
-
-	--[[if(self.time>5 and math.random()<0.1) then
-		local nd = 0
-		if(math.random()<0.5) then
-			nd = self.dir-1
-		else
-			nd = self.dir+1
-		end
-		makeRoom(self.pos-self.dir,nd)
-	end]]
 
 	if(self.turn<0) then
 		local nd = 0
@@ -76,12 +67,22 @@ function Tunneler:update()
 				self.pos = self.pos - nd
 			end
 		end
+		if(math.random()< 0.2) then
+			self.time = 0
+			local l = math.random(2,4)
+			for x = -l,l do
+				for y = -l,l do
+					local pp = Pos:new(x,y)
+					Level:put(self.pos+pp,"floor")
+				end
+			end
+		end
 		self.turn = math.random(7,15)
 	end
 
-	self.time = self.time - 1
+	self.time = self.time + 1
 	self.turn = self.turn - 1
-	if(self.time <= 0 or  (not self.pos:inBounds())) then
+	if(self.time >= self.maxTime or  (not self.pos:inBounds())) then
 		self.dead = true
 	end
 end
@@ -121,7 +122,9 @@ function makeRoom(pos,dir)
 	end
 	if(free) then
 		Level.space = Level.space + w*h
-		Level:put(door,"floor")
+		--if(math.random()<0.5) then -- make secret room without door sometimes
+			Level:put(door,"floor")
+		--end
 		for x=xstart,xstart+w do
 			for y=ystart,ystart+h do
 				local pp = p + Pos:new(x,y)
