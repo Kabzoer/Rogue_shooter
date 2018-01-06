@@ -162,14 +162,15 @@ function Level:decorate()
 		for y=0,Map.h do
 			local p = Pos:new(x,y)
 			if(p:get(map) == 0) then
-				local noise = love.math.noise(x/10,y/10)
+				local noise = love.math.noise(x/20,y/20)
 				if(noise<0.15) then
 					p:set(map_c,{math.random()*80,80+math.random()*70,0})
-					p:set(moveCost,2)
+					
 					local r = math.random()
 					if(noise<0.05) then
 						p:set(map,c_plant)
 						p:set(blockFOV,true)
+						p:set(moveCost,1.5)
 					elseif(noise<0.10) then
 						p:set(map,c_plant2)
 					else
@@ -275,7 +276,7 @@ function Level:put(p,type)
 	elseif(type == "blood") then
 		local ch = p:get(map)
 		if(ch == 0 or ch == c_floor or ch == c_floor2) then
-			p:set(map, c_smoke + math.random(0,3))
+			--p:set(map, c_smoke + math.random(0,3))
 			p:set(map_c,{100,0,20})
 		end
 	elseif(type == "rubbish") then

@@ -10,7 +10,7 @@ function factory.player()
 	new.team = "player"
 
 	factory.isCreature(new,100)
-	new.move.speed = 8
+	new.move.speed = 12
 
 	new:addComponent(Regenerate:new(500))
 	new:addComponent(Inventory:new())
@@ -32,7 +32,7 @@ function factory.corpse(e)
 	new.solid = false
 	new:addComponent(Food:new(math.floor(e.hp.maxHp/3)))
 
-	Level:put(e.pos,"blood")
+	--Level:put(e.pos,"blood")
 
 	return new
 end
@@ -42,7 +42,7 @@ function factory.rat()
 
 	new.team = "prey"
 
-	factory.isCreature(new,3)
+	factory.isCreature(new,2)
 	new.move.speed = 12
 
 	new:addComponent(Ai:new({Wander:new(), Flee:new("predator"), Flee:new("player",P_HIGH), Attack:new(P_LOW), FindFood:new() }))
@@ -106,7 +106,7 @@ function factory.cleaver()
 	new.team = "predator"
 
 	factory.isCreature(new,10)
-	new.move.speed = math.random(6,9)
+	new.move.speed = math.random(9,15)
 
 	new:addComponent(Ai:new({Wander:new(),Attack:new(), Approach:new("prey",P_LOW), Approach:new("player",P_NORMAL), FindFood:new() }))
 

@@ -38,8 +38,9 @@ function Dijkstra:calculate(g)
     end
 
     while true do
-        while #wq>0 do
-            local t=table.remove(wq,1)
+       --while #wq>0 do
+       for k,t in ipairs(wq) do
+            --local t=table.remove(wq)
             local x = t[1]
             local y = t[2]
             for _,d in pairs({{0,1},{0,-1},{1,0},{-1,0}}) do
@@ -55,7 +56,9 @@ function Dijkstra:calculate(g)
             end
         end
         if #pq<1 then break end
-        passes=passes+1
+        --passes=passes+1
+        wq = {}
+        --
         wq, pq = pq, wq
     end
 
@@ -81,8 +84,9 @@ function Dijkstra:calculateMG(goals)
     end
     
     while true do
-        while #wq>0 do
-            local t=table.remove(wq,1)
+       --while #wq>0 do
+       for k,t in ipairs(wq) do
+            --local t=table.remove(wq)
             local x = t[1]
             local y = t[2]
             for _,d in pairs({{0,1},{0,-1},{1,0},{-1,0}}) do
@@ -98,7 +102,8 @@ function Dijkstra:calculateMG(goals)
             end
         end
         if #pq<1 then break end
-        passes=passes+1
+        wq = {}
+      -- passes=passes+1
         wq, pq = pq, wq
     end
 end
@@ -124,8 +129,9 @@ function Dijkstra:calculateFlee(map,dist)
     end
 
     while true do
-        while #wq>0 do
-            local t=table.remove(wq,1)
+         --while #wq>0 do
+       for k,t in ipairs(wq) do
+            --local t=table.remove(wq)
             local x = t[1]
             local y = t[2]
             for _,d in pairs({{0,1},{0,-1},{1,0},{-1,0}}) do
@@ -141,7 +147,8 @@ function Dijkstra:calculateFlee(map,dist)
             end
         end
         if #pq<1 then break end
-        passes=passes+1
+        wq = {}
+       -- passes=passes+1
         wq, pq = pq, wq
     end
 end

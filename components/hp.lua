@@ -20,7 +20,7 @@ function Hp:event(e)
 		self.hp = self.hp - e.damage
 		
 
-		local c = {160,20,20+math.random()*50}
+		local c = {255,20,20+math.random()*50}
 		if(self.owner == player) then
 			hitShake = hitShake + e.damage
 			c = {160,150,20+math.random()*50}
@@ -28,6 +28,7 @@ function Hp:event(e)
 		if(self.hp>0) then
 			particles:spawn(self.owner.pos,"string",{s = e.damage,c = c})
 			if(math.random()<e.damage/20) then
+				
 				Level:put(self.owner.pos,"blood")
 			end
 		end

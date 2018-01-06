@@ -7,7 +7,7 @@ Cstring = {}
 function Cstring:load()
 	self.char = {}
 	self.cw = 8
-	self.ch = 8
+	self.ch = 12
 end
 
 function Cstring:new(string,color)
@@ -42,7 +42,7 @@ function Cstring:draw(x,y,w)
 			local color = self.color[i] or {150,150,150}
 
 			batch:setColor(color[1],color[2],color[3])
-			batch:add(quads[c],cx*self.cw,cy*self.cw)
+			batch:add(quads[c],cx*self.cw,cy*self.ch)
 
 			cx = cx + 1
 

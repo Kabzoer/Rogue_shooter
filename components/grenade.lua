@@ -25,16 +25,16 @@ function Grenade:event(e)
 	elseif(e.id == "use") then
 		self.active = true
 	elseif(e.id == "description") then
-		e.s = e.s .. "Dmg: 10-20"
+		e.s = e.s .. "Dmg: 20-40"
 	end
 	return e
 end
 
 function Grenade:grenade()
 	if(self.timer >= self.time1) then
-		damageAoE( AoE_circle(self.owner.pos,7,0.3),10)
+		damageAoE( AoE_circle(self.owner.pos,7,0.3),20)
 		
-		damageAoE(AoE_circle(self.owner.pos,3,0.1),10)
+		damageAoE(AoE_circle(self.owner.pos,3,0.1),20)
 		Level:destroy(self.owner.pos,4)
 		slowmo()
 		particles:spawn(self.owner.pos,"explosion")

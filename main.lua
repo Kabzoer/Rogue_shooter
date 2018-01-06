@@ -1,6 +1,10 @@
 --[[
 Working title: Hive
+TWO OLD WAYS:
+CHURCH OF MEKHANE
+SARKICISM
 
+-> android > both but low hp/handicap
 
 TODO
 [x] inventory
@@ -23,7 +27,7 @@ TODO
 [x] redesign hp
 [x] level gen
 [x] ai vision
-[x] ai pathing?
+[x] ai pathing
 [x] implement AI states/trees/utility?
 [-] visual ammo/reloading
 [ ] add fleeing
@@ -36,7 +40,7 @@ TODO
 [ ] generate treasure rooms w/ enemies
 [ ] add vents
 [ ] sound implementation
-[ ] how to handle automatic guns vs non-automatic?
+[ ] how to handle automatic guns vs non-automatic? --> volleys
 [ ] sound implementation
 [ ] more level scenery
 [x] plants
@@ -68,11 +72,11 @@ require 'particles'
 io.stdout:setvbuf("no")
 
 --set window & canvas
-width = 960  
+width = 1280  
 height = 720 
 love.window.setMode(width,height,{vsync=false,fullscreen=false})
-canv = love.graphics.newCanvas(480,360)
-blurCanvas = love.graphics.newCanvas(480,360)
+canv = love.graphics.newCanvas(640,360)
+blurCanvas = love.graphics.newCanvas(640,360)
 --total tiles: 60*45
 
 --time related globals
@@ -124,7 +128,7 @@ function love.load()
 	font = love.graphics.newImage( "tile.png" )
 	quads = {}
 	for i=0,255 do
-		quads[i] = love.graphics.newQuad((i%16)*8, math.floor(i/16)*8, 8, 8, font:getWidth(), font:getHeight())
+		quads[i] = love.graphics.newQuad((i%16)*8, math.floor(i/16)*12, 8, 12, font:getWidth(), font:getHeight())
 	end	
 	batch = love.graphics.newSpriteBatch(font, 3000,"stream")
 
@@ -169,7 +173,7 @@ function love.load()
 		Level:addRandom(factory.staminaBoost2())
 	end
 
-	for i=1,2 do 
+	for i=1,3 do 
 		Level:addRandom(factory.shotgun())
 		Level:addRandom(factory.laser())
 		Level:addRandom(factory.grenade())
@@ -233,6 +237,9 @@ function act(dt)
 		t = t +1
 		speed = math.min(1.0,speed + 0.1)
 
+		local start = love.timer.getTime()
+
+
 		for k,v in ipairs(teams) do
 
 			if(k == t%10 and v ~= "player") then
@@ -249,10 +256,16 @@ function act(dt)
 
 				
 				teamD[v]:calculateMG(list)
+				
+
 				teamF[v]:calculateFlee(teamD[v])
 			end
-
 			
+			
+		end
+		local result = love.timer.getTime() - start
+		if(result > 0.01) then
+			print( string.format( "It took %.3f milliseconds to make map!", result * 1000 ))
 		end
 		if(t%10 == 8) then
 			list = {}
@@ -321,8 +334,6 @@ function love.update(dt)
 		turns = turns + 1
 	end
 
-
-
 	-- calculate graphic-related stuff
 	moveView(dt)
 	doFov()
@@ -381,13 +392,13 @@ function love.draw()
 
 	--draw scanlines TODO: render without image
 	love.graphics.setBlendMode("alpha")
-	love.graphics.setColor(255, 255, 255,math.min(255,120 + hitShake*100))
-	love.graphics.draw(scanlines,xo,yo)
+	love.graphics.setColor(255, 255, 255,math.min(255,120 + hitShake*125))
+	--love.graphics.draw(scanlines,xo,yo)
 
  	--draw bloom to screen
  	love.graphics.setBlendMode("add", "premultiplied")
 	love.graphics.setColor( 255,255,255)
-	love.graphics.draw(blurCanvas,xo,yo, 0, 2)
+	--love.graphics.draw(blurCanvas,xo,yo, 0, 2)
 
 	love.graphics.setColor(5+hitShake*8,5,5)
 	love.graphics.rectangle("fill", xo, yo, width, height)

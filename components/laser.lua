@@ -13,7 +13,6 @@ function Laser:new(damage,energy)
 	new.energy = energy or 1
 
 
-	----
 	new.timer = 0
 	new.active = false
 	new.target = nil

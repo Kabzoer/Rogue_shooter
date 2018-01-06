@@ -1,6 +1,6 @@
 --[[
 
-Everything for siplaying the scrolling maps
+Everything for displaying the scrolling maps
 
 ]]
 Graphics = {}
@@ -15,6 +15,7 @@ function Graphics:load()
 
 
 	self.cw = 8
+	self.ch = 12
 end 
 
 function Graphics:draw()
@@ -59,10 +60,13 @@ end
 
 function Graphics:drawGlyph(char,c,f,x,y)
 	batch:setColor({c[1]*f,c[2]*f,c[3]*f})
-	--local xx = math.floor(4*math.sin(y/10+t/80))
-	--local yy = math.floor(4*math.sin(x/10-t/80))
+	x = x*8-offsetx 
+	y = y*8-offsety
 
-	batch:add(quads[char],x*8-offsetx ,y*8-offsety)
+	--x = x + math.floor(1*math.sin(y/30+3*time))
+	--y = y + math.floor(1*math.sin(x/30-3*time))
+
+	batch:add(quads[char],x,y)
 end
 
 function Graphics:calculate()
@@ -80,9 +84,10 @@ function Graphics:calculate()
 				local c = p:get(map_c)
 				local bc = p:get(damageColor)
 
-				--[[if(scent[p.x] and scent[p.x][p.y]) then
-					bc = {p:get(teamF["player"])*10,0,0}
-				end]]
+				
+					--local v = p:get(teamF["predator"]) or 0
+					--bc = {0,v*3,v*10}
+				
 
 				if(char == c_wall) then
 					bc = c

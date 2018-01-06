@@ -1,0 +1,1107 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"moveTim",
+				"MoveTimeStart"
+			],
+			[
+				"setB",
+				"love.graphics.setBlendMode"
+			],
+			[
+				"func",
+				"function	function"
+			],
+			[
+				"spawn",
+				"Spawner"
+			],
+			[
+				"grr",
+				"love.graphics.rotate"
+			],
+			[
+				"timer",
+				"love.timer.getTime"
+			],
+			[
+				"graphr",
+				"love.graphics.rectangle"
+			],
+			[
+				"setC",
+				"love.graphics.setColor"
+			],
+			[
+				"els",
+				"elseif	elseif cond then"
+			],
+			[
+				"graph",
+				"love.graphics.rectangle"
+			],
+			[
+				"pre",
+				"prevAction"
+			],
+			[
+				"sp",
+				"spaceTime"
+			],
+			[
+				"combo",
+				"combo_stretch"
+			],
+			[
+				"setTar",
+				"setTargetPitch"
+			],
+			[
+				"str",
+				"strobeSpeed"
+			],
+			[
+				"_",
+				"_energy"
+			],
+			[
+				"get",
+				"getEngineUse"
+			],
+			[
+				"h",
+				"h"
+			],
+			[
+				"mouse",
+				"mousepressed"
+			],
+			[
+				"edit",
+				"editstate"
+			],
+			[
+				"in",
+				"instancemanager"
+			],
+			[
+				"draw",
+				"draw_outer"
+			],
+			[
+				"fun",
+				"function	function"
+			],
+			[
+				"hu",
+				"hullslot"
+			],
+			[
+				"img_s",
+				"img_selected"
+			],
+			[
+				"draw_",
+				"draw_selected"
+			],
+			[
+				"sel",
+				"selected"
+			],
+			[
+				"gr",
+				"graphics"
+			],
+			[
+				"x",
+				"x"
+			],
+			[
+				"fx",
+				"fx"
+			],
+			[
+				"hull",
+				"hull_selected"
+			],
+			[
+				"ne",
+				"new_obj"
+			],
+			[
+				"ship",
+				"shipRotation"
+			],
+			[
+				"set",
+				"setFilter"
+			],
+			[
+				"mousec",
+				"mousec2Y"
+			],
+			[
+				"num",
+				"numPlanets"
+			],
+			[
+				"camZ",
+				"camZoomTarget"
+			],
+			[
+				"shipre",
+				"shipRelX-cameraX"
+			],
+			[
+				"Camer",
+				"shipRelX-cameraX"
+			],
+			[
+				"else",
+				"elseif"
+			],
+			[
+				"up",
+				"upgrade_available"
+			],
+			[
+				"dt",
+				"dt"
+			],
+			[
+				"max",
+				"maxLevel"
+			],
+			[
+				"tile",
+				"tileQuad"
+			],
+			[
+				"fu",
+				"function	function"
+			],
+			[
+				"time",
+				"timer_swirl"
+			],
+			[
+				"flick",
+				"flicker_timer"
+			],
+			[
+				"dam",
+				"damage"
+			],
+			[
+				"table",
+				"table.sort	table.sort"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "main.lua",
+			"settings":
+			{
+				"buffer_size": 12274,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "factory.lua",
+			"settings":
+			{
+				"buffer_size": 5188,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "components/gun.lua",
+			"settings":
+			{
+				"buffer_size": 1439,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "components/melee.lua",
+			"settings":
+			{
+				"buffer_size": 574,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "graphics.lua",
+			"settings":
+			{
+				"buffer_size": 3283,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "gui.lua",
+			"settings":
+			{
+				"buffer_size": 4052,
+				"line_ending": "Windows"
+			}
+		}
+	],
+	"build_system": "Packages/User/LOVE2D run.sublime-build",
+	"command_palette":
+	{
+		"height": 392.0,
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Install Package"
+			],
+			[
+				"love",
+				"Set Syntax: Lua (Love)"
+			],
+			[
+				"inde",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"set syntax lua",
+				"Set Syntax: Lua (Love)"
+			],
+			[
+				"pack",
+				"Package Control: Install Package"
+			],
+			[
+				"ind",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"rei",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"inden",
+				"Indentation: Reindent Lines"
+			],
+			[
+				"git ",
+				"Git: Gui"
+			],
+			[
+				"git gui",
+				"Git: Gui"
+			],
+			[
+				"git",
+				"Git: Gui"
+			],
+			[
+				"glsl",
+				"Set Syntax: GLSL"
+			],
+			[
+				"insll",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: in",
+				"Package Control: Install Package"
+			],
+			[
+				"g",
+				"Git: Gui"
+			],
+			[
+				"gi",
+				"Git: Gui"
+			],
+			[
+				"git pull",
+				"Git: Pull Current Branch"
+			],
+			[
+				"git reset",
+				"Git: Reset (hard) HEAD"
+			],
+			[
+				"git p",
+				"Git: Pull"
+			],
+			[
+				"git fetch",
+				"Git: Fetch"
+			],
+			[
+				"packag",
+				"Package Control: Remove Package"
+			],
+			[
+				"package in",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: ins",
+				"Package Control: Install Package"
+			],
+			[
+				"Package Control: remov",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: remove",
+				"Package Control: Remove Package"
+			],
+			[
+				"git pus",
+				"Git: Push Current Branch"
+			],
+			[
+				"git push",
+				"Git: Push Current Branch"
+			],
+			[
+				"git  status",
+				"Git: Status"
+			],
+			[
+				"git fet",
+				"Git: Fetch"
+			],
+			[
+				"git add",
+				"Git: Add Remote"
+			],
+			[
+				"git ad",
+				"Git: Add Remote"
+			],
+			[
+				"git add ",
+				"Git: Add Remote"
+			],
+			[
+				"git remote",
+				"Git: Remote"
+			],
+			[
+				"git init",
+				"Git: Init"
+			],
+			[
+				"git clone",
+				"Git: Quick Log Current File"
+			],
+			[
+				"git f",
+				"Git: Fetch"
+			],
+			[
+				"Package Control: re",
+				"Package Control: Remove Package"
+			],
+			[
+				"Package Control: install",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 408.0
+	},
+	"console":
+	{
+		"height": 204.0
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/D/Documenten/LUA/rogue_shooter/cstring.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/hp.lua",
+		"/D/Documenten/LUA/rogue_shooter/level.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/projectile.lua",
+		"/D/Documenten/LUA/rogue_shooter/entity.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/ai.lua",
+		"/D/Documenten/LUA/rogue_shooter/dijkstra.lua",
+		"/D/Documenten/LUA/rogue_shooter/graphics.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/move.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/grenade.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/laser.lua",
+		"/D/Documenten/LUA/rogue_shooter/tunneler.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/terrain.lua",
+		"/D/Documenten/LUA/rogue_shooter/Project.sublime-project",
+		"/D/Documenten/LUA/physics_test/main.lua",
+		"/D/Documenten/LUA/Rogue_shooter/tile.png",
+		"/D/Documenten/LUA/Rogue_shooter/main.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/buttons.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/state_main.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/main.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/animate.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/melee.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/pos.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/factory.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/score.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/coin.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/move.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/state_game.lua",
+		"/D/Documenten/LUA/physics test/main.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/health.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/music.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/level.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/damage.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/magic.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/dijkstra.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/ai.lua",
+		"/D/Documenten/LUA/Spacegame/main.lua",
+		"/D/Documenten/LUA/Spacegame/mockup.pdn",
+		"/D/Documenten/LUA/CLF/Nymphaea/state_dead.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/state_progress.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/scoreboard.lua",
+		"/D/Documenten/LUA/Spacegame/gui.lua",
+		"/D/Documenten/LUA/Spacegame/cpu.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/effects.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/wave.glsl",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/rhythm.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/background.lua",
+		"/D/Documenten/LUA/Rogue_shooter/graphics.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/blur.glsl",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/shop.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/inventory.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/particles.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/collapse.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/state.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/transition.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/next.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/state_pause.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/state_progress",
+		"/D/Documenten/LUA/CLF/Nymphaea/components/despawn.lua",
+		"/D/Documenten/LUA/CLF/Nymphaea/bgMusic.lua",
+		"/D/Documenten/LUA/_Done/OneButtonJam/score.lua",
+		"/D/Documenten/LUA/CLF/Game/state.lua",
+		"/D/Documenten/LUA/CLF/Game/components/collapse.lua",
+		"/D/Documenten/LUA/CLF/Game/components/health.lua",
+		"/D/Documenten/LUA/CLF/Game/state_dead.lua",
+		"/D/Documenten/LUA/CLF/Game/level.lua",
+		"/D/Documenten/LUA/CLF/Game/score.lua",
+		"/D/Documenten/LUA/CLF/Game/main.lua",
+		"/D/Documenten/LUA/CLF/Game/components/heart.lua",
+		"/D/Documenten/LUA/CLF/Game/components/next.lua",
+		"/D/Documenten/LUA/CLF/Game/components/move.lua",
+		"/D/Documenten/LUA/CLF/Game/effects.lua",
+		"/D/Documenten/LUA/CLF/Game/factory.lua",
+		"/D/Documenten/LUA/CLF/Game/components/bomb.lua",
+		"/D/Documenten/LUA/CLF/Game/damage.lua",
+		"/D/Documenten/LUA/CLF/Game/inventory.lua",
+		"/D/Documenten/LUA/CLF/Game/state_game.lua",
+		"/D/Documenten/LUA/CLF/Game/state_main.lua",
+		"/D/Documenten/LUA/CLF/Game/terrain.lua",
+		"/D/Documenten/LUA/CLF/Game/components/spawner.lua",
+		"/D/Documenten/LUA/CLF/Game/particles.lua",
+		"/D/Documenten/LUA/CLF/Game/components/coin.lua",
+		"/D/Documenten/LUA/CLF/Game/components/crate.lua",
+		"/D/Documenten/LUA/CLF/Game/buttons.lua",
+		"/D/Documenten/LUA/CLF/Game/components/shop.lua",
+		"/D/Documenten/LUA/CLF/Game/pos.lua",
+		"/D/Documenten/LUA/CLF/Game/bgMusic.lua",
+		"/D/Documenten/LUA/CLF/Game/transition.lua",
+		"/D/Documenten/LUA/CLF/Game/track.lua",
+		"/D/Documenten/LUA/CLF/Game/background.lua",
+		"/D/Documenten/LUA/CLF/Game/music.lua",
+		"/D/Documenten/LUA/CLF/Game/state_pause.lua",
+		"/D/Documenten/LUA/CLF/Game/sfx.lua",
+		"/D/Documenten/LUA/CLF/Game/components/magic.lua",
+		"/D/Documenten/LUA/CLF/Game/components/bomber.lua",
+		"/D/Documenten/LUA/CLF/Game/components/rhythm.lua",
+		"/D/Documenten/LUA/CLF/Game/components/item.lua",
+		"/D/Documenten/LUA/CLF/Game/entity.lua",
+		"/D/Documenten/LUA/CLF/Game/components/spikes.lua",
+		"/D/Documenten/LUA/CLF/Game/components/ai.lua",
+		"/D/Documenten/LUA/CLF/Game/dijkstra.lua",
+		"/D/Documenten/LUA/CLF/Game/components/lotus.lua",
+		"/D/Documenten/LUA/CLF/Game/components/consumable.lua",
+		"/D/Documenten/LUA/_Done/TowerJam/main.lua",
+		"/D/Documenten/LUA/CLF/Game/components/animate.lua",
+		"/D/Documenten/LUA/CLF/Game/components/platform.lua",
+		"/D/Documenten/LUA/Spacegame_galaxy/main.lua",
+		"/D/Documenten/LUA/_Done/TowerJam/Button.lua",
+		"/D/Documenten/LUA/CLF/Game/map.lua",
+		"/D/Documenten/LUA/CLF/Game/creds.txt",
+		"/D/Documenten/LUA/CLF/Game/components/interact.lua",
+		"/D/Documenten/LUA/RTS/main.lua",
+		"/D/Documenten/LUA/Sand/main.lua",
+		"/D/Documenten/LUA/Rogue_shooter/cstring.lua",
+		"/D/Documenten/LUA/Rogue_shooter/gui.lua",
+		"/D/Documenten/LUA/_Other/wave-master/wave.lua",
+		"/D/Documenten/LUA/_Other/wave-master/main.lua",
+		"/D/Documenten/LUA/CLF/Game/components/melee.lua",
+		"/D/Documenten/LUA/CLF/Game/components/projectile.lua",
+		"/D/Documenten/LUA/CLF/Game/sfx/walk-oud1.wav",
+		"/D/Downloads/main.lua",
+		"/D/Documenten/LUA/Rogue_shooter/map.lua",
+		"/D/Documenten/LUA/Rogue_shooter/pos.lua",
+		"/D/Documenten/LUA/Rogue_shooter/damage.lua",
+		"/D/Documenten/LUA/Rogue_shooter/level.lua",
+		"/D/Documenten/LUA/CLF/Game/inventory",
+		"/D/Documenten/LUA/CLF/Game/components/_template.lua",
+		"/D/Documenten/LUA/Spacegame/lut.glsl"
+	],
+	"find":
+	{
+		"height": 48.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"mouse",
+			"*8",
+			".cw",
+			"tile",
+			"view.",
+			"plant",
+			"pq",
+			"plant",
+			"passes",
+			"moveC",
+			"speed",
+			"screenSc",
+			"b",
+			"dir",
+			"MoveTimeStart",
+			"setD",
+			"lastD",
+			"player",
+			"dir",
+			"print",
+			"owner.po",
+			"coi",
+			"stamp",
+			"stampS",
+			" c",
+			"c)",
+			"self.score",
+			"wipe",
+			"self.index",
+			"time",
+			"self.done",
+			"screenS",
+			"wave",
+			"res",
+			"self.timer",
+			"wave",
+			"time",
+			"send",
+			"blur",
+			"time",
+			"blur",
+			"bloom",
+			"self.done",
+			"heart",
+			"high",
+			"timer",
+			"self.timer",
+			"wipe",
+			"setColor",
+			"playFx",
+			"self.timer",
+			".highscores",
+			"self.highscores",
+			"self.scores",
+			"high",
+			"combo",
+			"tween",
+			"state_pause",
+			"getLett",
+			"self.scores",
+			"print",
+			"bomb",
+			"Collapse",
+			"passable(false)",
+			"print",
+			"score",
+			"{off",
+			"bomb",
+			"score",
+			"img_gui",
+			"twe",
+			"add",
+			"twee",
+			"maxH",
+			"death",
+			"create",
+			"self.trac",
+			"death",
+			"lights",
+			"parallax_",
+			"parallax",
+			"self.d",
+			"siren",
+			"hear",
+			"heart",
+			"newpos",
+			"platf",
+			"print",
+			"cam",
+			"fulls",
+			"print",
+			"resize",
+			"print",
+			"key",
+			"key.up",
+			"colla",
+			"shake",
+			"Object",
+			"cam",
+			"bomb",
+			"offset",
+			"twee",
+			"Effect",
+			"Cname",
+			"Bomb",
+			"Shop",
+			"print",
+			"spawn",
+			"dead",
+			"spik",
+			"Transition",
+			"trans",
+			"transition",
+			"Cname",
+			"music",
+			"stop",
+			"generate",
+			"state_main",
+			"beatTime",
+			"beatIndex",
+			"targetPitch",
+			"beatResidual",
+			"beatIndex",
+			"beatTime",
+			"elapsedBeats",
+			"musicIndex",
+			"Rhy",
+			"rhyt"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"moveTimeStart",
+			"score.scores[self.index]",
+			"stamped",
+			"score.scores",
+			"state_progress",
+			"Despawn",
+			"dmgPassable()",
+			"minH",
+			"new",
+			"parallax",
+			"parallax_",
+			"k",
+			"Dust",
+			"Consumable",
+			"Effect",
+			"Lotus",
+			"Crate",
+			"transition",
+			"Transition",
+			"Next",
+			"self",
+			"stopped",
+			"state_dead",
+			"time",
+			"beat",
+			"self.targetPitch",
+			"self.beatResidual",
+			"self.beatIndex",
+			"self.beatTime",
+			"self.elapsedBeats",
+			"self.index",
+			"getState()",
+			"state_main",
+			"state_pause",
+			"State",
+			"Interact",
+			"Heart",
+			"Shop",
+			"Spikes",
+			"Platform",
+			"charged",
+			"Spawner",
+			"Magic",
+			"Collapse",
+			"Map",
+			"Bomb",
+			"Item",
+			"Animate",
+			"Coin",
+			"Object",
+			"Melee",
+			"Health",
+			"Ai",
+			"screenH",
+			"screenW",
+			"Tail",
+			"h_dsc",
+			"w_dsc",
+			"str_dsc",
+			"str_inv",
+			"str_player",
+			"dsc_h",
+			"dsc_w",
+			"Food",
+			".ai.owner",
+			"passes",
+			"event",
+			"Charge",
+			"Grenade",
+			"AmmoBox",
+			"Ammo",
+			"Laser",
+			"self.overlay",
+			"h",
+			"Hp",
+			"hp",
+			"blur",
+			"TimedEffect",
+			"new:addComponent(Remove:new(true))",
+			"",
+			"Remove",
+			".",
+			"self.dscStr",
+			"self.ply",
+			"self.invStr",
+			"self.plStr",
+			"inv",
+			"player",
+			"descr",
+			"description",
+			"Cstring",
+			"Equipment",
+			"Corpse",
+			"Level:addRandom",
+			"entities:addRandom",
+			"Consume",
+			"Boost",
+			"screen_c",
+			"bg_c",
+			"self.bgcolors",
+			"self.colors",
+			"self.screen",
+			"char",
+			"Door",
+			"Inventory",
+			"gui.ch",
+			"gui.cw",
+			"gui",
+			"melee",
+			"self",
+			"new",
+			"batch",
+			"font",
+			"view.x",
+			"view.y",
+			"view.x",
+			"Map.h",
+			"Map.w",
+			"[x][y]",
+			"new",
+			"songs:get()",
+			"songs[song]",
+			"Particle",
+			"particles",
+			"sick",
+			"targets",
+			"height",
+			"width"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 4,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "main.lua",
+					"settings":
+					{
+						"buffer_size": 12274,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3079,
+								3079
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua Love/LuaLove.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3264.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "factory.lua",
+					"settings":
+					{
+						"buffer_size": 5188,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								663,
+								663
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 594.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "components/gun.lua",
+					"settings":
+					{
+						"buffer_size": 1439,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SublimeLove/Love.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "components/melee.lua",
+					"settings":
+					{
+						"buffer_size": 574,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								241,
+								241
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SublimeLove/Love.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "graphics.lua",
+					"settings":
+					{
+						"buffer_size": 3283,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								937,
+								937
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SublimeLove/Love.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 858.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "gui.lua",
+					"settings":
+					{
+						"buffer_size": 4052,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1545,
+								1545
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SublimeLove/Love.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1122.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 0.0
+	},
+	"input":
+	{
+		"height": 31.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 330.0
+	},
+	"output.git":
+	{
+		"height": 267.0
+	},
+	"output.git-commit":
+	{
+		"height": 363.0
+	},
+	"output.git-fetch":
+	{
+		"height": 100.0
+	},
+	"output.git-init":
+	{
+		"height": 100.0
+	},
+	"output.git-pull":
+	{
+		"height": 100.0
+	},
+	"output.git-push":
+	{
+		"height": 100.0
+	},
+	"replace":
+	{
+		"height": 62.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+			[
+				"",
+				"CLF/Game/main.lua"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 234.0,
+	"status_bar_visible": true
+}

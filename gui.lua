@@ -1,5 +1,6 @@
 gui = {}
 
+c_bg = 0
 c_select = 2
 c_ammoF = 3
 c_ammo = 4
@@ -11,10 +12,10 @@ function gui:load()
 	self.w = 18
 	self.h = Map.sh
 
-	self.x_inv = 15
+	self.x_inv = 12
 
 	self.w_dsc = 29
-	self.h_dsc = Map.sh
+	self.h_dsc = math.floor(Map.sh*(8/12))
 
 
 	self.str_player = Cstring:new()
@@ -35,7 +36,7 @@ end
 
 
 function gui:update()
-	local y = math.floor(mouseY)
+	local y = math.floor(mouseY*(8/12))
 	if(mouseX>=Map.sw and 11<=y and y-self.x_inv<= 20) then
 		self.highlight = y-self.x_inv
 	else
@@ -51,7 +52,7 @@ function gui:update()
 
 	self.str_player = 
 	player:getName() .. "\n" ..
-	Cstring:new(hp .. "/" .. maxHp,c) .. "\n" .. "\n" .. "\n" .. "\n" .. "\n" .."\n" .."\n" .."\n" .."\n" .."\n" .."\n"
+	Cstring:new(hp .. "/" .. maxHp,c) .. "\n" .. "\n" .. "\n" .. "\n" .. "\n" .."\n" .."\n" .."\n" 
 
 
 	for i in ipairs(player.equipment.slots) do
@@ -146,7 +147,7 @@ function gui:draw()
 		if(player.equipment:isEquipped(item)) then
 			for j=1,self.w do
 				batch:setColor(255,255,255,30)
-				batch:add(quads[c_fill],(j-1+self.x)*Graphics.cw,(i-1+self.x_inv+self.y)*Graphics.cw)
+				batch:add(quads[c_bg],(j-1+self.x)*Graphics.cw,(i-1+self.x_inv+self.y)*Graphics.ch)
 			end
 		end
 	end
@@ -154,18 +155,18 @@ function gui:draw()
 	if(self.highlight>0) then
 		for i=1,self.w do
 			batch:setColor(255,255,255,15)
-			batch:add(quads[c_fill],(i-1+self.x)*Graphics.cw,(self.highlight-1+self.x_inv+self.y)*Graphics.cw)
+			batch:add(quads[c_bg],(i-1+self.x)*Graphics.cw,(self.highlight-1+self.x_inv+self.y)*Graphics.ch)
 		end
 	end
 
 	for x=0,Map.sw do
 		batch:setColor(150,150,150)
-		batch:add(quads[16],x*8,31*8)
+		batch:add(quads[16],x*Graphics.cw,self.h_dsc*Graphics.ch)
 	end
 
 	for y=0,44 do
 		batch:setColor(150,150,150)
-		batch:add(quads[18],41*8,y*8)
+		batch:add(quads[18],41*Graphics.cw,y*Graphics.ch)
 	end
 
 	--[[for y=self.h_dsc+2,Map.h do
