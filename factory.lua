@@ -5,7 +5,7 @@ factory = {}
 
 
 function factory.player()
-	local new = Entity:new('@',{60,170,170},"Jake Emmerson")
+	local new = Entity:new('@',{0.24,0.67,0.67},"Jake Emmerson")
 
 	new.team = "player"
 
@@ -27,7 +27,7 @@ end
 
 
 function factory.corpse(e)
-	local new = Entity:new('%',{120,20,40}, e.name  .. " corpse")
+	local new = Entity:new('%',{0.5,0.1,0.2}, e.name  .. " corpse")
 	factory.isItem(new,5)
 	new.solid = false
 	new:addComponent(Food:new(math.floor(e.hp.maxHp/3)))
@@ -38,7 +38,7 @@ function factory.corpse(e)
 end
 
 function factory.rat()
-	local new = Entity:new('r', {100,50,50}, "Rat")
+	local new = Entity:new('r', {0.4,0.2,0.2}, "Rat")
 
 	new.team = "prey"
 
@@ -55,7 +55,7 @@ function factory.rat()
 end
 
 function factory.worm()
-	local new = Entity:new('w', {170,40,80}, "Giant worm (head)")
+	local new = Entity:new('w', {0.67,0.15,0.3}, "Giant worm (head)")
 
 	new.team = "prey"
 
@@ -88,7 +88,7 @@ function factory.worm()
 end
 
 function factory.wormTail(c)
-	local new = Entity:new(c, {150,30,60}, "Giant worm (body)")
+	local new = Entity:new(c, {0.6,0.1,0.2}, "Giant worm (body)")
 
 	new:addComponent(Hp:new(10))
 	new:addComponent(Corpse:new())
@@ -101,7 +101,7 @@ end
 
 
 function factory.cleaver()
-	local new = Entity:new('c', {120,50,160},"Cleaver")
+	local new = Entity:new('c', {0.5,0.2,0.6},"Cleaver")
 
 	new.team = "predator"
 
@@ -121,7 +121,7 @@ function factory.cleaver()
 end
 
 function factory.bite()
-	local new = Entity:new("?",{160,40,30},"Bite")
+	local new = Entity:new("?",{0.6,0.2,0.15},"Bite")
 	factory.isMelee(new,2,25)
 
 	return new
@@ -136,14 +136,14 @@ function factory.claws()
 end
 
 function factory.fist()
-	local new = Entity:new("?",{150,120,70},"Fist")
+	local new = Entity:new("?",{0.5,0.4,0.3},"Fist")
 	factory.isMelee(new,1,30)
 
 	return new
 end
 
 function factory.revolver()
-	local new = Entity:new(']',{90,90,150},"Revolver")
+	local new = Entity:new(']',{0.35,0.35,0.6},"Revolver")
 	factory.isItem(new)
 	new:addComponent(Gun:new(ammo.pistol,5,6,0.9))
 	new.type = "ranged"
@@ -152,7 +152,7 @@ function factory.revolver()
 end
 
 function factory.shotgun()
-	local new = Entity:new('}',{90,90,150},"Shotgun")
+	local new = Entity:new('}',{0.35,0.35,0.6},"Shotgun")
 	factory.isItem(new)
 	new:addComponent(Gun:new(ammo.shotgun,10,2,0.6))
 	new.gun.shake = 12
@@ -162,7 +162,7 @@ function factory.shotgun()
 end
 
 function factory.laser()
-	local new = Entity:new(']',{150,90,200},"Laser gun")
+	local new = Entity:new(']',{0.6,0.35,0.8},"Laser gun")
 	factory.isItem(new)
 	new.type = "ranged"
 
@@ -172,7 +172,7 @@ function factory.laser()
 end
 
 function factory.knife()
-	local new = Entity:new('|',{130,140,130},"Knife")
+	local new = Entity:new('|',{0.5,0.55,0.5},"Knife")
 	factory.isItem(new)
 	factory.isMelee(new,3,20)
 
@@ -182,7 +182,7 @@ function factory.knife()
 end
 
 function factory.grenade()
-	local new = Entity:new(c_bullet,{200,100,30},"Grenade")
+	local new = Entity:new(c_bullet,{0.8,0.4,0.15},"Grenade")
 	factory.isItem(new,20)
 	
 	new:addComponent(Remove:new(false))
@@ -196,7 +196,7 @@ function factory.grenade()
 end
 
 function factory.staminaBoost()
-	local new = Entity:new('+',{30,180,30},"Injector")
+	local new = Entity:new('+',{0.15,0.7,0.15},"Injector")
 	factory.isItem(new,5)
 
 	new:addComponent(Boost:new(0.1))
@@ -206,7 +206,7 @@ function factory.staminaBoost()
 end
 
 function factory.staminaBoost2()
-	local new = Entity:new('+',{60,200,60},"Injector II")
+	local new = Entity:new('+',{0.25,0.8,0.25},"Injector II")
 	factory.isItem(new,2)
 
 	new:addComponent(Boost:new(0.3))
@@ -216,7 +216,7 @@ function factory.staminaBoost2()
 end
 
 function factory.ammoBox(ammo,amount)
-	local new = Entity:new(c_box,{120,80,60},"Box of " .. ammo.name)
+	local new = Entity:new(c_box,{0.5,0.3,0.2},"Box of " .. ammo.name)
 	new.solid = false
 
 	new:addComponent(AmmoBox:new(ammo,amount))
@@ -225,7 +225,7 @@ function factory.ammoBox(ammo,amount)
 end
 
 function factory.door(p)
-	local new = Entity:new('+',{120,120,100},"Blast door")
+	local new = Entity:new('+',{0.5,0.5,0.4},"Blast door")
 	new.solid = true
 	new:addComponent(Door:new())
 
@@ -236,7 +236,7 @@ function factory.door(p)
 end
 
 function factory.doorSlide(p)
-	local new = Entity:new('+',{100,160,160},"Slide door")
+	local new = Entity:new('+',{0.4,0.6,0.6},"Slide door")
 	new.solid = true
 	new:addComponent(Door:new(true))
 

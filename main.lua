@@ -74,7 +74,7 @@ io.stdout:setvbuf("no")
 --set window & canvas
 width = 1280  
 height = 720 
-love.window.setMode(width,height,{vsync=false,fullscreen=false})
+love.window.setMode(width,height,{vsync=true,fullscreen=false})
 canv = love.graphics.newCanvas(640,360)
 blurCanvas = love.graphics.newCanvas(640,360)
 --total tiles: 60*45
@@ -97,7 +97,7 @@ offsety = 0
 
 shake = 0
 hitShake = 0
-shakeColor = {255,0,0}
+shakeColor = {1,0,0}
 
 --globals
 font = love.graphics.newFont("E4.ttf", 8)
@@ -353,26 +353,26 @@ function love.draw()
 
 
 	--draw to canvas
-	love.graphics.setColor( 255, 255, 255)
+	love.graphics.setColor( 1, 1, 1)
 	love.graphics.draw(batch)
 
 	--Graphics:drawMap()
 
 	--draw FPS counter
-	love.graphics.setColor(150,100,150)
+	love.graphics.setColor(0.6,0.4,0.6)
 	love.graphics.print("FPS: "..tostring(love.timer.getFPS( )), 2, 1)
 
 	--bloom canvas
 	love.graphics.setCanvas(blurCanvas)
 	love.graphics.setShader(blur)
 	love.graphics.clear(0,0,0)
-      --chroma effect
+    --chroma effect
 	love.graphics.setBlendMode("add")
-	love.graphics.setColor(255,0,0)
+	love.graphics.setColor(1,0,0)
 	love.graphics.draw(canv,-1-hitShake*2,0)
-	love.graphics.setColor(0,255,0)
+	love.graphics.setColor(0,1,0)
 	love.graphics.draw(canv,0,0)
-	love.graphics.setColor(0,0,255)
+	love.graphics.setColor(0,0,1)
 	love.graphics.draw(canv,1+hitShake*2,0)
 
 	--draw canvas to screen
@@ -387,20 +387,20 @@ function love.draw()
 	love.graphics.setColor( shakeColor)
 	love.graphics.draw(canv,xo+shake*rnd()-hitShake+1,yo+shake*rnd()+1, 0, 2)
 	
-	love.graphics.setColor(255-shakeColor[1], 255-shakeColor[2], 255-shakeColor[3])
+	love.graphics.setColor(1-shakeColor[1], 1-shakeColor[2], 1-shakeColor[3])
 	love.graphics.draw(canv,xo+shake*rnd()+hitShake  ,yo+shake*rnd()  , 0, 2)
 
 	--draw scanlines TODO: render without image
 	love.graphics.setBlendMode("alpha")
-	love.graphics.setColor(255, 255, 255,math.min(255,120 + hitShake*125))
-	--love.graphics.draw(scanlines,xo,yo)
+	love.graphics.setColor(1, 1, 1,math.min(1,0.4 + hitShake*0.6))
+	love.graphics.draw(scanlines,xo,yo)
 
  	--draw bloom to screen
  	love.graphics.setBlendMode("add", "premultiplied")
-	love.graphics.setColor( 255,255,255)
-	--love.graphics.draw(blurCanvas,xo,yo, 0, 2)
+	love.graphics.setColor( 1,1,1)
+	love.graphics.draw(blurCanvas,xo,yo, 0, 2)
 
-	love.graphics.setColor(5+hitShake*8,5,5)
+	love.graphics.setColor(0.02+hitShake*0.05,0.02,0.02)
 	love.graphics.rectangle("fill", xo, yo, width, height)
 	
 	

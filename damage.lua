@@ -168,13 +168,13 @@ function damageUpdate()
 				local b = 255
 
 				if(d<10) then
-					r = lerp(255,255,d/10)
-					g = lerp(50,255,d/10)
-					b = lerp(50,150,d/10)
+					r = lerp(1,1,d/10)
+					g = lerp(0.2,1,d/10)
+					b = lerp(0.2,0.6,d/10)
 				elseif(d<50) then
-					r = lerp(255,50,(d-10)/40)
-					g = lerp(255,50,(d-10)/40)
-					b = lerp(150,255,(d-10)/40)
+					r = lerp(1,0.2,(d-10)/40)
+					g = lerp(1,0.2,(d-10)/40)
+					b = lerp(0.6,1,(d-10)/40)
 				end
 
 				damageColor[x][y] = {r,g,b}

@@ -21,7 +21,7 @@ c_pipe = 192
 
 function Level:load()
 	map = Map:new(c_wall) 
-	map_c = Map:new({120,120,140}) 
+	map_c = Map:new({0.5,0.5,0.6}) 
 
 	moveCost = Map:new(1) 
 
@@ -139,9 +139,9 @@ function Level:decorate()
 			elseif(rnd == 1) then
 				ch = c_pipe
 			end
-			local col = {math.random(20,50),math.random(20,50),math.random(20,50)}
+			local col = {math.random()*0.08+0.2,math.random()*0.08+0.2,math.random()*0.08+0.2}
 			if(ch == c_pipe) then
-				col = {math.random(30,60),math.random(20,40),math.random(0,20)}
+				col = {math.random()*0.12+0.2,math.random()*0.08+0.15,math.random()*0.08}
 			end
 
 
@@ -153,7 +153,7 @@ function Level:decorate()
 					self:makeWire(p,d+3,ch,col)
 				end
 				p:set(map,ch+6)
-				p:set(map_c,{col[1]+20,col[2]+20,col[3]+20})
+				p:set(map_c,{col[1]+0.08,col[2]+0.08,col[3]+0.08})
 			end
 		end
 	end
@@ -164,7 +164,7 @@ function Level:decorate()
 			if(p:get(map) == 0) then
 				local noise = love.math.noise(x/20,y/20)
 				if(noise<0.15) then
-					p:set(map_c,{math.random()*80,80+math.random()*70,0})
+					p:set(map_c,{math.random()*0.3,0.3+math.random()*0.25,0})
 					
 					local r = math.random()
 					if(noise<0.05) then
@@ -206,7 +206,7 @@ function Level:makeWire(p,d,ch,col)
 		if((p+newd):get(map) == 0 or j==100) then
 			if(j%7 == 6 and math.random()<0.5) then
 				p:set(map,ch+6)
-				p:set(map_c,{col[1]+20,col[2]+20,col[3]+20})
+				p:set(map_c,{col[1]+0.1,col[2]+0.1,col[3]+0.1})
 			else
 				p:set(map,ch+getR(d,newd))
 				p:set(map_c,col)
@@ -218,7 +218,7 @@ function Level:makeWire(p,d,ch,col)
 
 			local index = math.random(1,3)
 			col = {col[1],col[2],col[3]}
-			col[index] = col[index] + 3
+			col[index] = col[index] + 0.01
 			--col = {math.random(10,60),math.random(10,40),math.random(10,40)}
 
 		elseif((p+newd):get(map) == c_wall) then
@@ -256,14 +256,14 @@ end
 function Level:put(p,type)
 	if(type == "wall") then
 		p:set(map,c_wall)
-		p:set(map_c,{120,120,140})
+		p:set(map_c,{0.5,0.5,0.45})
 		p:set(solid,true)
 		p:set(blockFOV,true)
 
 	elseif(type == "floor") then
 		if(p:inBounds()) then
 			p:set(map,0)
-			p:set(map_c,{40,40,60})
+			p:set(map_c,{0.15,0.15,0.23})
 			p:set(solid,false)
 			p:set(blockFOV,false)
 		end
@@ -277,7 +277,7 @@ function Level:put(p,type)
 		local ch = p:get(map)
 		if(ch == 0 or ch == c_floor or ch == c_floor2) then
 			--p:set(map, c_smoke + math.random(0,3))
-			p:set(map_c,{100,0,20})
+			p:set(map_c,{0.4,0,0.1})
 		end
 	elseif(type == "rubbish") then
 		local ch = p:get(map)
@@ -296,7 +296,7 @@ function Level:put(p,type)
 		p:set(solid,false)
 		p:set(blockFOV,false)
 	elseif(type == "vent") then
-		p:set(map_c,{150,150,200})
+		p:set(map_c,{0.6,0.6,0.8})
 		p:set(map,c_vent)
 		p:set(solid,false)
 		p:set(blockFOV,false)

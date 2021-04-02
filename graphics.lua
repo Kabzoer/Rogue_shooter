@@ -7,7 +7,7 @@ Graphics = {}
 
 function Graphics:load()
 	self.screen = Map:new(0,true) 
-	self.screen_c = Map:new({255,255,255},true) 
+	self.screen_c = Map:new({1,1,1},true) 
 	self.bg_c = Map:new({0,0,0},true)  
 
 	self.zbuffer = Map:new(0,true) 
@@ -35,7 +35,7 @@ function Graphics:draw()
 			f = f * math.min(1.0,(Map.sh-(y-offsety/8)))
 
 
-			if(c[1]>=1 or c[2] >=1 or c[3] >= 1) then
+			if(c[1]>=0.01 or c[2] >=0.01 or c[3] >= 0.01) then
 				self:drawGlyph(c_fill,c,f,x,y)
 			end
 			
@@ -54,7 +54,7 @@ function Graphics:draw()
 	--draw mouse highlight
 	if(mouseX < Map.sw and mouseY < Map.sh) then
 		local mp = mouseP - view
-		Graphics:drawGlyph(c_select,{100,100,100},1,mp.x,mp.y)
+		Graphics:drawGlyph(c_select,{0.4,0.4,0.4},1,mp.x,mp.y)
 	end
 end 
 
@@ -110,7 +110,7 @@ function Graphics:calculate()
 		local p = v.pos
 		local z = v.z
 		local char = 0
-		local c = {100,100,100}
+		local c = {0.4,0.4,0.4}
 		local f = p:get(FOV)
 
 		if(f>0.01) then
@@ -118,7 +118,7 @@ function Graphics:calculate()
 				char = v.char
 				c = v.color
 				if(v.blink and blink) then
-					c = {255,255,255-c[3]}
+					c = {1,1,1-c[3]}
 				end
 			end
 
@@ -157,7 +157,7 @@ function Graphics:drawMap()
 			--end
 		end
 	end
-	love.graphics.setColor(255, 255, 255,255)
+	love.graphics.setColor(1, 1, 1,1)
 	love.graphics.points(list)
 end 
 

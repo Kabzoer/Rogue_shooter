@@ -15,7 +15,7 @@ function console:load()
 		self.colors[j] = {}
 		self.lines[j] = {}
 		for i = 1,self.w do
-			self.colors[j][i] = {150,150,150}
+			self.colors[j][i] = {0.6,0.6,0.6}
 			self.lines[j][i] = 0
 		end
 	end
@@ -47,7 +47,7 @@ function console:println(s,col)
 end
 
 function console:print(s,col)
-	col = col or {150,150,150}
+	col = col or {0.6,0.6,0.6}
 
 	for j = 1,#s do
 		if(string.byte(s, j) == string.byte('\n')) then
@@ -75,7 +75,7 @@ function console:newline()
 
 	for j = 1,self.w do
 		self.lines[self.h][j]= 0
-		self.colors[self.h][j] = {150,150,150}
+		self.colors[self.h][j] = {0.6,0.6,0.6}
 	end
 end
 
@@ -115,7 +115,7 @@ function console:printDeath(subject)
 		self:print("You ",player.color)
 		console:println(" died.")
 		console:println("------------")
-		console:println(" GAME OVER!" , {150,50,50})
+		console:println(" GAME OVER!" , {0.6,0.2,0.2})
 		console:println("------------")
 	else
 		--[[console:print("The ")

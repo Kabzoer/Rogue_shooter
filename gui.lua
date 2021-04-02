@@ -96,23 +96,23 @@ function gui:update()
 		self:info(player.inventory.items[self.highlight][1])
 	end
 
-	self.str_inv = Cstring:new("------------------",{100,100,100})
+	self.str_inv = Cstring:new("------------------",{0.4,0.4,0.4})
 
 	for i=1,20 do
 		local s =  Cstring:new()
 		local item = player.inventory.items[i][1]
 
 		if(i<11) then
-			s = s .. Cstring:new("" .. i%10,{60,60,60})
+			s = s .. Cstring:new("" .. i%10,{0.25,0.25,0.25})
 		else
-			s = s .. Cstring:new("-", {50,50,50})
+			s = s .. Cstring:new("-", {0.2,0.2,0.2})
 		end
 
 		if(item) then
 			if(item.maxStack > 1) then
 				local n = # player.inventory.items[i]
 				if(n > 1) then
-					s = s .. Cstring:new(n .. "x", {120,120,120})
+					s = s .. Cstring:new(n .. "x", {0.5,0.5,0.5})
 				end
 			end
 			
@@ -146,7 +146,7 @@ function gui:draw()
 		local item = player.inventory.items[i][1]
 		if(player.equipment:isEquipped(item)) then
 			for j=1,self.w do
-				batch:setColor(255,255,255,30)
+				batch:setColor(1,1,1,0.1)
 				batch:add(quads[c_bg],(j-1+self.x)*Graphics.cw,(i-1+self.x_inv+self.y)*Graphics.ch)
 			end
 		end
@@ -154,23 +154,23 @@ function gui:draw()
 
 	if(self.highlight>0) then
 		for i=1,self.w do
-			batch:setColor(255,255,255,15)
+			batch:setColor(1,1,1,0.1)
 			batch:add(quads[c_bg],(i-1+self.x)*Graphics.cw,(self.highlight-1+self.x_inv+self.y)*Graphics.ch)
 		end
 	end
 
 	for x=0,Map.sw do
-		batch:setColor(150,150,150)
+		batch:setColor(0.6,0.6,0.6)
 		batch:add(quads[16],x*Graphics.cw,self.h_dsc*Graphics.ch)
 	end
 
 	for y=0,44 do
-		batch:setColor(150,150,150)
+		batch:setColor(0.6,0.6,0.6)
 		batch:add(quads[18],41*Graphics.cw,y*Graphics.ch)
 	end
 
 	--[[for y=self.h_dsc+2,Map.h do
-		batch:setColor(150,150,150)
+		batch:setColor(0.6,0.6,0.6)
 		batch:add(quads[18],30*8,y*8)
 	end]]
 

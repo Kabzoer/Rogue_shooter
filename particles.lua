@@ -24,7 +24,11 @@ function particles:update(dt)
 	for x=0,Map.w do
 		for y=0,Map.h do
 			for i in ipairs(damageColor[x][y]) do
-				damageColor[x][y][i] = damageColor[x][y][i]*(1-dt*4)
+				if damageColor[x][y][i] > 0 and damageColor[x][y][i] < 0.01 then
+					damageColor[x][y][i] = 0
+				else
+					damageColor[x][y][i] = damageColor[x][y][i]*(1-dt*4)
+				end
 			end
 		end
 	end
@@ -61,16 +65,16 @@ function particles:spawn(p,type,t)
 		end
 	elseif(type == "explosion") then
 		for i = 1,12 do
-			table.insert(self,Particle:create({char = c_fire,x=p.x + math.random()*4-2, y=p.y+ math.random()*4-2, c1={250,250,0}, c2={200,0,0}, t = math.random()*3,animate = true,z=2}))
+			table.insert(self,Particle:create({char = c_fire,x=p.x + math.random()*4-2, y=p.y+ math.random()*4-2, c1={1,1,0}, c2={0.8,0,0}, t = math.random()*3,animate = true,z=2}))
 		end
 		for i = 1,80 do
 			local rand = math.random()
-			local c = {rand*100+155,rand*100+155,rand*100+155}
-			table.insert(self,Particle:create({char = c_smoke,x=p.x, y=p.y, vx = math.random()*80-40,vy = math.random()*80-40,ay = -20, f=8, c1=c, c2={100,100,100}, t = -math.log(math.random()+0.1),animate = true}))
+			local c = {rand*0.4+0.6,rand*0.4+0.6,rand*0.4+0.6}
+			table.insert(self,Particle:create({char = c_smoke,x=p.x, y=p.y, vx = math.random()*80-40,vy = math.random()*80-40,ay = -20, f=8, c1=c, c2={0.4,0.4,0.4}, t = -math.log(math.random()+0.1),animate = true}))
 		end
 	elseif(type == "boost") then
 		for i = 1,10 do
-			table.insert(self,Particle:create({char = toChar("+"),x=p.x, y=p.y, vx = math.random()*40-20,vy = math.random()*40-20,ay = -90, f=5, c1={0,100,0},c2 = {100,200,100}, t = math.random()*0.4,overlay = true}))
+			table.insert(self,Particle:create({char = toChar("+"),x=p.x, y=p.y, vx = math.random()*40-20,vy = math.random()*40-20,ay = -90, f=5, c1={0,0.4,0},c2 = {0.4,0.8,0.4}, t = math.random()*0.4,overlay = true}))
 		end
 	elseif(type == "charge") then
 		--[[for x=0,Map.w do
@@ -82,7 +86,7 @@ function particles:spawn(p,type,t)
 			end
 		end]]
 		for i = 1,15 do
-			table.insert(self,Particle:create({char = c_charge,x=p.x+math.random()*5-2, y=p.y + math.random()*5-2, c1={100,0,100},c2 = {255,255,255}, t = math.random()*0.4,animate = true}))
+			table.insert(self,Particle:create({char = c_charge,x=p.x+math.random()*5-2, y=p.y + math.random()*5-2, c1={0.4,0,0.4},c2 = {1,1,1}, t = math.random()*0.4,animate = true}))
 		end
 	end
 end

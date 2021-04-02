@@ -207,31 +207,31 @@
 			"file": "main.lua",
 			"settings":
 			{
-				"buffer_size": 12274,
+				"buffer_size": 12245,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "factory.lua",
+			"file": "particles.lua",
 			"settings":
 			{
-				"buffer_size": 5188,
+				"buffer_size": 3802,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "components/gun.lua",
+			"file": "damage.lua",
 			"settings":
 			{
-				"buffer_size": 1439,
+				"buffer_size": 3325,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "components/melee.lua",
+			"file": "level.lua",
 			"settings":
 			{
-				"buffer_size": 574,
+				"buffer_size": 6258,
 				"line_ending": "Windows"
 			}
 		},
@@ -239,15 +239,7 @@
 			"file": "graphics.lua",
 			"settings":
 			{
-				"buffer_size": 3283,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "gui.lua",
-			"settings":
-			{
-				"buffer_size": 4052,
+				"buffer_size": 3272,
 				"line_ending": "Windows"
 			}
 		}
@@ -428,14 +420,22 @@
 	},
 	"file_history":
 	[
-		"/D/Documenten/LUA/rogue_shooter/cstring.lua",
-		"/D/Documenten/LUA/rogue_shooter/components/hp.lua",
+		"/D/Documenten/LUA/rogue_shooter/console.lua",
 		"/D/Documenten/LUA/rogue_shooter/level.lua",
-		"/D/Documenten/LUA/rogue_shooter/components/projectile.lua",
+		"/D/Documenten/LUA/rogue_shooter/gui.lua",
+		"/D/Documenten/LUA/rogue_shooter/graphics.lua",
 		"/D/Documenten/LUA/rogue_shooter/entity.lua",
+		"/D/Documenten/LUA/rogue_shooter/damage.lua",
+		"/D/Documenten/LUA/rogue_shooter/cstring.lua",
+		"/D/Documenten/LUA/rogue_shooter/factory.lua",
+		"/D/Documenten/LUA/rogue_shooter/ammo.lua",
+		"/D/Documenten/LUA/rogue_shooter/blur.glsl",
+		"/D/Documenten/LUA/rogue_shooter/components/melee.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/gun.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/hp.lua",
+		"/D/Documenten/LUA/rogue_shooter/components/projectile.lua",
 		"/D/Documenten/LUA/rogue_shooter/components/ai.lua",
 		"/D/Documenten/LUA/rogue_shooter/dijkstra.lua",
-		"/D/Documenten/LUA/rogue_shooter/graphics.lua",
 		"/D/Documenten/LUA/rogue_shooter/components/move.lua",
 		"/D/Documenten/LUA/rogue_shooter/components/grenade.lua",
 		"/D/Documenten/LUA/rogue_shooter/components/laser.lua",
@@ -547,15 +547,7 @@
 		"/D/Documenten/LUA/_Other/wave-master/main.lua",
 		"/D/Documenten/LUA/CLF/Game/components/melee.lua",
 		"/D/Documenten/LUA/CLF/Game/components/projectile.lua",
-		"/D/Documenten/LUA/CLF/Game/sfx/walk-oud1.wav",
-		"/D/Downloads/main.lua",
-		"/D/Documenten/LUA/Rogue_shooter/map.lua",
-		"/D/Documenten/LUA/Rogue_shooter/pos.lua",
-		"/D/Documenten/LUA/Rogue_shooter/damage.lua",
-		"/D/Documenten/LUA/Rogue_shooter/level.lua",
-		"/D/Documenten/LUA/CLF/Game/inventory",
-		"/D/Documenten/LUA/CLF/Game/components/_template.lua",
-		"/D/Documenten/LUA/Spacegame/lut.glsl"
+		"/D/Documenten/LUA/CLF/Game/sfx/walk-oud1.wav"
 	],
 	"find":
 	{
@@ -570,9 +562,18 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": true,
+		"case_sensitive": false,
 		"find_history":
 		[
+			"bg_c",
+			"damageC",
+			"damageColor",
+			"wall",
+			"150",
+			"wall",
+			"makeWire",
+			"150",
+			"color",
 			"mouse",
 			"*8",
 			".cw",
@@ -691,16 +692,7 @@
 			"stop",
 			"generate",
 			"state_main",
-			"beatTime",
-			"beatIndex",
-			"targetPitch",
-			"beatResidual",
-			"beatIndex",
-			"beatTime",
-			"elapsedBeats",
-			"musicIndex",
-			"Rhy",
-			"rhyt"
+			"beatTime"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -708,6 +700,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"0.6",
 			"moveTimeStart",
 			"score.scores[self.index]",
 			"stamped",
@@ -834,8 +827,7 @@
 			"particles",
 			"sick",
 			"targets",
-			"height",
-			"width"
+			"height"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -846,7 +838,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -854,15 +846,15 @@
 					"file": "main.lua",
 					"settings":
 					{
-						"buffer_size": 12274,
+						"buffer_size": 12245,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3079,
-								3079
+								7360,
+								7370
 							]
 						],
 						"settings":
@@ -871,52 +863,52 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3264.0,
+						"translation.y": 7113.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "factory.lua",
+					"file": "particles.lua",
 					"settings":
 					{
-						"buffer_size": 5188,
+						"buffer_size": 3802,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								663,
-								663
+								581,
+								581
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Lua/Lua.tmLanguage",
+							"syntax": "Packages/SublimeLove/Love.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 594.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 2,
-					"file": "components/gun.lua",
+					"file": "damage.lua",
 					"settings":
 					{
-						"buffer_size": 1439,
+						"buffer_size": 3325,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3255,
+								3266
 							]
 						],
 						"settings":
@@ -925,25 +917,25 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2784.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 3,
-					"file": "components/melee.lua",
+					"file": "level.lua",
 					"settings":
 					{
-						"buffer_size": 574,
+						"buffer_size": 6258,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								241,
-								241
+								1535,
+								1537
 							]
 						],
 						"settings":
@@ -952,7 +944,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1308.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -962,15 +954,15 @@
 					"file": "graphics.lua",
 					"settings":
 					{
-						"buffer_size": 3283,
+						"buffer_size": 3272,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								937,
-								937
+								717,
+								717
 							]
 						],
 						"settings":
@@ -979,34 +971,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 858.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "gui.lua",
-					"settings":
-					{
-						"buffer_size": 4052,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1545,
-								1545
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/SublimeLove/Love.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1122.0,
+						"translation.y": 324.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -1047,7 +1012,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 330.0
+		"height": 159.0
 	},
 	"output.git":
 	{

@@ -10,7 +10,7 @@ function Entity:new(chr,clr,name)
 		chr = toChar(chr or '?')
 	end
 	new.char = chr
-	new.color = clr or {150,150,150}
+	new.color = clr or {0.6,0.6,0.6}
 	new.dead = false
 	new.solid = true
 	new.z = 2

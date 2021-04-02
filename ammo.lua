@@ -22,7 +22,7 @@ end
 ammo.pistol = newAmmo("9mm rounds",5)
 
 function ammo.pistol.new(accuracy)
-	local new = Entity:new("?",{255,255,255}, "bullet")
+	local new = Entity:new("?",{1,1,1}, "bullet")
 
 	new:addComponent(Projectile:new(accuracy,true))
 	new.projectile.damage = ammo.pistol.damage
@@ -34,7 +34,7 @@ end
 ammo.shotgun = newAmmo("shells",2,12)
 
 function ammo.shotgun.new(accuracy)
-	local new = Entity:new(c_bulletActive,{255,255,255}, "bullet")
+	local new = Entity:new(c_bulletActive,{1,1,1}, "bullet")
 
 	new:addComponent(Projectile:new(accuracy,true))
 	new.projectile.damage = ammo.shotgun.damage

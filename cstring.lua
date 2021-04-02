@@ -21,7 +21,7 @@ function Cstring:new(string,color)
 	new.color = {}
 
 	for i = 1,#new.string do
-		new.color[i] = color or {150,150,150}
+		new.color[i] = color or {0.6,0.6,0.6}
 	end
 
 
@@ -39,7 +39,7 @@ function Cstring:draw(x,y,w)
 			cy = cy + 1
 		else
 			local c = string.byte(self.string, i)
-			local color = self.color[i] or {150,150,150}
+			local color = self.color[i] or {0.6,0.6,0.6}
 
 			batch:setColor(color[1],color[2],color[3])
 			batch:add(quads[c],cx*self.cw,cy*self.ch)

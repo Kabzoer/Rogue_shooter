@@ -1,6 +1,6 @@
 // adapted from http://www.youtube.com/watch?v=qNM0k522R7o
 // blur kernel from http://dev.theomader.com/gaussian-kernel-calculator/
-#extension GL_EXT_gpu_shader4 : require
+//#extension GL_EXT_gpu_shader4 : require
 
 extern vec2 size;
 extern int samples = 9; // pixels per axis; higher = bigger glow, worse performance
